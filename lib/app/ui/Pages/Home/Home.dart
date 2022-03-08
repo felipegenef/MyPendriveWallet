@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_pendrive_wallet_desktop/app/ui/Pages/Home/widgets/HomeCard.dart';
-import 'package:my_pendrive_wallet_desktop/app/ui/global/widgets/Menu.dart';
-
 import '../../../constants.dart';
+import '../../../global/widgets/Menu.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -20,7 +19,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: BACKGROUND,
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      floatingActionButton: MenuBubble(),
+      floatingActionButton: const MenuBubble(),
       body: Stack(
         children: [
           Container(
@@ -30,16 +29,25 @@ class _HomePageState extends State<HomePage> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
+              children: [
                 HomeCard(
+                  onClick: () {
+                    print("add");
+                  },
                   imageURL: "assets/add.png",
                   label: "Create new Wallet",
                 ),
                 HomeCard(
+                  onClick: () {
+                    print("seed");
+                  },
                   imageURL: "assets/user.png",
                   label: "Login with Seed",
                 ),
                 HomeCard(
+                  onClick: () {
+                    print("password");
+                  },
                   imageURL: "assets/lock.png",
                   label: "Enter password",
                 ),

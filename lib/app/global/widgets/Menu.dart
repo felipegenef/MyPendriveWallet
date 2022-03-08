@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_pendrive_wallet_desktop/app/Custom/menu.dart';
 import 'package:my_pendrive_wallet_desktop/app/constants.dart';
-import 'package:my_pendrive_wallet_desktop/app/ui/global/widgets/menuIcon.dart';
+
+import 'menuIcon.dart';
 
 class MenuBubble extends StatefulWidget {
   const MenuBubble({Key key}) : super(key: key);

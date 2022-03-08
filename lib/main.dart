@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_pendrive_wallet_desktop/app/ui/global/widgets/Menu.dart';
 import 'package:my_pendrive_wallet_desktop/app/constants.dart';
 import 'package:pie_chart/pie_chart.dart';
 
@@ -21,7 +20,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Directionality(textDirection: TextDirection.ltr, child: HomePage()),
+      home: const Directionality(
+          textDirection: TextDirection.ltr, child: HomePage()),
     );
   }
 }

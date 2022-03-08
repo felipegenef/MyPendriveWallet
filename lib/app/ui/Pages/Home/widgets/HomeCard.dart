@@ -22,11 +22,9 @@ class _HomeCardState extends State<HomeCard> {
     return InkWell(
       borderRadius: BorderRadius.circular(30),
       onTap: () {
-        print("clicou");
         if (widget.onClick != null) widget.onClick();
       },
       onHover: (isMouseOver) {
-        print(isMouseOver);
         setState(() {
           isHovered = isMouseOver;
         });
