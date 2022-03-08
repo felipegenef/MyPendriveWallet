@@ -27,7 +27,7 @@ class BubbleMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialButton(
       shape: const StadiumBorder(),
-      padding: const EdgeInsets.only(top: 11, bottom: 13, left: 32, right: 32),
+      padding: const EdgeInsets.only(top: 11, bottom: 13, left: 20, right: 32),
       color: item.bubbleColor,
       splashColor: Colors.grey.withOpacity(0.1),
       highlightColor: Colors.grey.withOpacity(0.1),

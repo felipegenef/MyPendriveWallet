@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_pendrive_wallet_desktop/app/Custom/Menu.dart';
+import 'package:my_pendrive_wallet_desktop/app/ui/global/widgets/Menu.dart';
 import 'package:my_pendrive_wallet_desktop/app/constants.dart';
 import 'package:pie_chart/pie_chart.dart';
 
-import 'app/ui/Pages/Home.dart';
+import 'app/ui/Pages/Home/Home.dart';
 
 void main() {
   runApp(const MyApp());
