@@ -40,6 +40,7 @@ class _MenuBubbleState extends State<MenuBubble>
           icon: Container(
             margin: const EdgeInsets.only(right: 30),
             decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10000),
               boxShadow: [
                 BoxShadow(
                   offset: Offset(0, 15),
@@ -66,6 +67,7 @@ class _MenuBubbleState extends State<MenuBubble>
           icon: Container(
             margin: const EdgeInsets.only(right: 30),
             decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10000),
               boxShadow: [
                 BoxShadow(
                   offset: Offset(0, 15),
@@ -92,6 +94,7 @@ class _MenuBubbleState extends State<MenuBubble>
           icon: Container(
             margin: const EdgeInsets.only(right: 30),
             decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10000),
               boxShadow: [
                 BoxShadow(
                   offset: Offset(0, 15),
