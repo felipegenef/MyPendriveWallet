@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:my_pendrive_wallet_desktop/app/ui/Pages/AddWallet/widgets/AddWalletCard.dart';
 import 'package:my_pendrive_wallet_desktop/app/ui/Pages/Home/widgets/HomeCard.dart';
 import '../../../constants.dart';
 import '../../../global/widgets/Menu.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key key}) : super(key: key);
+class AddWalletPage extends StatefulWidget {
+  const AddWalletPage({Key key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<AddWalletPage> createState() => _AddWalletPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _AddWalletPageState extends State<AddWalletPage> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -30,27 +31,12 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                HomeCard(
+                AddWalletCard(
                   onClick: () {
                     print("add");
-                    Navigator.pushNamed(context, "/addWallet");
                   },
                   imageURL: "assets/add.png",
                   label: "Create new Wallet",
-                ),
-                HomeCard(
-                  onClick: () {
-                    print("seed");
-                  },
-                  imageURL: "assets/user.png",
-                  label: "Login with Seed",
-                ),
-                HomeCard(
-                  onClick: () {
-                    print("password");
-                  },
-                  imageURL: "assets/lock.png",
-                  label: "Enter password",
                 ),
               ],
             ),

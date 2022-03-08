@@ -17,8 +17,6 @@ class _HomeCardState extends State<HomeCard> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
-    var appBarHeight = (height / 10);
     return InkWell(
       borderRadius: BorderRadius.circular(30),
       onTap: () {

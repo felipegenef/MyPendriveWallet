@@ -20,7 +20,7 @@ class _MenuBubbleState extends State<MenuBubble>
   void initState() {
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 260),
+      duration: const Duration(milliseconds: 260),
     );
 
     final curvedAnimation =
@@ -67,6 +67,17 @@ class _MenuBubbleState extends State<MenuBubble>
               _animationController.reverse();
             },
           ),
+          if (ModalRoute.of(context).settings.name != "/")
+            Bubble(
+              title: "Logout",
+              bubbleColor: DARK_BLUE,
+              icon: const MenuItem(assetImageURL: "assets/logout.png"),
+              titleStyle: const TextStyle(fontSize: 16, color: Colors.white),
+              onPress: () {
+                _animationController.reverse();
+                Navigator.pop(context);
+              },
+            ),
         ],
 
         // animation controller
