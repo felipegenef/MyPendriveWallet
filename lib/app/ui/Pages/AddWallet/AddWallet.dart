@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_pendrive_wallet_desktop/app/global/widgets/whatermarkLogo.dart';
 import 'package:my_pendrive_wallet_desktop/app/ui/Pages/AddWallet/widgets/AddWalletCard.dart';
 import 'package:my_pendrive_wallet_desktop/app/ui/Pages/Home/widgets/HomeCard.dart';
 import '../../../constants.dart';
@@ -25,8 +26,6 @@ class _AddWalletPageState extends State<AddWalletPage> {
         children: [
           Container(
             height: height,
-            padding: EdgeInsets.only(top: appBarHeight + 20),
-            // color: Colors.red,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -41,28 +40,7 @@ class _AddWalletPageState extends State<AddWalletPage> {
               ],
             ),
           ),
-          Row(
-            children: [
-              Container(
-                color: BACKGROUND,
-                constraints: BoxConstraints(
-                    minHeight: 100, minWidth: width, maxHeight: 400),
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                alignment: Alignment.centerLeft,
-                width: width - 40,
-                height: appBarHeight,
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    minHeight: 100,
-                  ),
-                  child: const Image(
-                    image: AssetImage("assets/logo.png"),
-                  ),
-                ),
-              ),
-            ],
-          )
+          WatermarkLogo()
         ],
       ),
     );
