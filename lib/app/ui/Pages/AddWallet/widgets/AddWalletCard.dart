@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_pendrive_wallet_desktop/app/global/widgets/input.dart';
 
 import '../../../../constants.dart';
 
@@ -16,33 +17,7 @@ class AddWalletCard extends StatefulWidget {
 
 class _AddWalletCardState extends State<AddWalletCard> {
   TextEditingController walletNameController = TextEditingController();
-  FocusNode walletNameNode = FocusNode();
-  bool walletNameFocused = false;
   TextEditingController walletPasswordController = TextEditingController();
-  FocusNode walletPasswordNode = FocusNode();
-  bool walletPasswordFocused = false;
-  void _onFocusChange() {
-    setState(() {
-      walletNameFocused = walletNameNode.hasFocus;
-      walletPasswordFocused = walletPasswordNode.hasFocus;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    walletNameNode.addListener(_onFocusChange);
-    walletPasswordNode.addListener(_onFocusChange);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    walletNameNode.removeListener(_onFocusChange);
-    walletNameNode.dispose();
-    walletPasswordNode.removeListener(_onFocusChange);
-    walletPasswordNode.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +25,15 @@ class _AddWalletCardState extends State<AddWalletCard> {
     var height = MediaQuery.of(context).size.height;
 
     return Container(
-      height: height / 1.4,
-      width: width / 1.4,
+      height: height,
+      width: width,
+      constraints: const BoxConstraints(
+        minWidth: 390,
+        maxWidth: 950,
+        minHeight: 295,
+        maxHeight: 660,
+      ),
+      // margin: const EdgeInsets.symmetric(horizontal: 60),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: TRANSPARENT,
@@ -65,9 +47,10 @@ class _AddWalletCardState extends State<AddWalletCard> {
         ],
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
+            margin: EdgeInsets.symmetric(vertical: height / 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10000),
               boxShadow: [
@@ -80,82 +63,45 @@ class _AddWalletCardState extends State<AddWalletCard> {
               ],
             ),
             child: Image(
-              width: width / 11,
+              width: 120,
               image: AssetImage(widget.imageURL),
             ),
           ),
           Container(
-            constraints: const BoxConstraints(maxWidth: 400),
-            child: TextField(
-              focusNode: walletNameNode,
-              decoration: InputDecoration(
-                label: Container(
-                  margin: EdgeInsets.only(bottom: !walletNameFocused ? 80 : 0),
-                  child: !walletNameFocused
-                      ? const Text(
-                          "Nome da Carteira",
-                          style: TextStyle(
-                              color: DARK_BLUE,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500),
-                        )
-                      : Container(
-                          width: 0,
-                        ),
-                ),
-                fillColor: INPUT_BACKGROUND,
-                filled: true,
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: DARK_BLUE, width: 5),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(15),
-                  ),
-                ),
-                border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(15),
-                  ),
-                ),
-              ),
-              controller: walletNameController,
-            ),
+            height: 0,
+            constraints: const BoxConstraints(minHeight: 30),
+          ),
+          Input(
+            controller: walletNameController,
+            label: "Nome da Carteira",
           ),
           Container(
-            constraints: const BoxConstraints(maxWidth: 400),
-            child: TextField(
-              obscureText: true,
-              focusNode: walletPasswordNode,
-              decoration: InputDecoration(
-                label: Container(
-                  margin:
-                      EdgeInsets.only(bottom: !walletPasswordFocused ? 80 : 0),
-                  child: !walletPasswordFocused
-                      ? const Text(
-                          "Senha",
-                          style: TextStyle(
-                              color: DARK_BLUE,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500),
-                        )
-                      : Container(
-                          width: 0,
-                        ),
-                ),
-                fillColor: INPUT_BACKGROUND,
-                filled: true,
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: DARK_BLUE, width: 5),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(15),
-                  ),
-                ),
-                border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(15),
-                  ),
-                ),
+            height: 0,
+            constraints: const BoxConstraints(minHeight: 10),
+          ),
+          Input(
+            controller: walletPasswordController,
+            label: "Senha",
+            obscureText: true,
+          ),
+          Container(
+            height: 0,
+            constraints: const BoxConstraints(minHeight: 20),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(vertical: height / 20),
+            child: MaterialButton(
+              onPressed: () {},
+              child: const Text(
+                "Criar",
+                style: TextStyle(color: WHITE, fontSize: 30),
               ),
-              controller: walletPasswordController,
+              height: 60,
+              minWidth: 250,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              elevation: 5,
+              color: DARK_BLUE,
             ),
           )
         ],
