@@ -29,13 +29,9 @@ class _AddWalletPageState extends State<AddWalletPage> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
+              children: const [
                 AddWalletCard(
-                  onClick: () {
-                    print("add");
-                  },
                   imageURL: "assets/add.png",
-                  label: "Create new Wallet",
                 ),
               ],
             ),

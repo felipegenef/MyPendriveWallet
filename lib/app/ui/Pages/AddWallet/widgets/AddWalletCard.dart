@@ -4,11 +4,12 @@ import 'package:flutter/services.dart';
 import '../../../../constants.dart';
 
 class AddWalletCard extends StatefulWidget {
-  const AddWalletCard({Key key, this.imageURL, this.onClick, this.label = ""})
-      : super(key: key);
+  const AddWalletCard({
+    Key key,
+    this.imageURL,
+  }) : super(key: key);
   final String imageURL;
-  final Function onClick;
-  final String label;
+
   @override
   State<AddWalletCard> createState() => _AddWalletCardState();
 }
@@ -79,16 +80,9 @@ class _AddWalletCardState extends State<AddWalletCard> {
               ],
             ),
             child: Image(
-              width: width / 9,
+              width: width / 11,
               image: AssetImage(widget.imageURL),
             ),
-          ),
-          Text(
-            widget.label,
-            style: TextStyle(
-                color: DARK_BLUE,
-                fontSize: width / 45,
-                fontWeight: FontWeight.bold),
           ),
           Container(
             constraints: const BoxConstraints(maxWidth: 400),
