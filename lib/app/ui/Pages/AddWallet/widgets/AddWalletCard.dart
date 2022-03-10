@@ -89,8 +89,9 @@ class _AddWalletCardState extends State<AddWalletCard> {
             constraints: const BoxConstraints(minHeight: 20),
           ),
           Container(
-            margin: EdgeInsets.symmetric(vertical: height / 20),
+            margin: EdgeInsets.only(top: height / 20, bottom: 20),
             child: MaterialButton(
+              hoverColor: LIGHT_BLUE,
               onPressed: () {},
               child: const Text(
                 "Criar",
@@ -103,7 +104,7 @@ class _AddWalletCardState extends State<AddWalletCard> {
               elevation: 5,
               color: DARK_BLUE,
             ),
-          )
+          ),
         ],
       ),
     );

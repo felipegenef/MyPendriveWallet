@@ -4,11 +4,16 @@ import '../../constants.dart';
 
 class Input extends StatefulWidget {
   const Input(
-      {Key key, this.controller, this.label = "", this.obscureText = false})
+      {Key key,
+      this.controller,
+      this.label = "",
+      this.obscureText = false,
+      this.maxWidth = 400})
       : super(key: key);
   final TextEditingController controller;
   final String label;
   final bool obscureText;
+  final double maxWidth;
   @override
   State<Input> createState() => _InputState();
 }
@@ -18,7 +23,7 @@ class _InputState extends State<Input> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(maxWidth: 400),
+      constraints: BoxConstraints(maxWidth: widget.maxWidth),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

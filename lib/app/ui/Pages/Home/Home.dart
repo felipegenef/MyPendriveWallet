@@ -42,6 +42,7 @@ class _HomePageState extends State<HomePage> {
                 HomeCard(
                   onClick: () {
                     print("seed");
+                    Navigator.pushNamed(context, "/loginWithSeed");
                   },
                   imageURL: "assets/user.png",
                   label: "Login with Seed",

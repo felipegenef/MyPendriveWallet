@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_pendrive_wallet_desktop/app/constants.dart';
 import 'package:my_pendrive_wallet_desktop/app/ui/Pages/AddWallet/AddWallet.dart';
+import 'package:my_pendrive_wallet_desktop/app/ui/Pages/LoginWithSeed/LoginWithSeed.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 import 'app/ui/Pages/Home/Home.dart';
@@ -29,6 +30,8 @@ class MyApp extends StatelessWidget {
           // When navigating to the "/second" route, build the SecondScreen widget.
           '/addWallet': (context) => const Directionality(
               textDirection: TextDirection.ltr, child: AddWalletPage()),
+          '/loginWithSeed': (context) => const Directionality(
+              textDirection: TextDirection.ltr, child: LoginWithSeedPage()),
         });
   }
 }

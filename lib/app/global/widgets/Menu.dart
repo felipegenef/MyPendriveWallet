@@ -32,21 +32,22 @@ class _MenuBubbleState extends State<MenuBubble>
 
   @override
   Widget build(BuildContext context) {
+    var route = ModalRoute.of(context).settings.name;
     return Container(
       margin: const EdgeInsets.only(bottom: 30),
       child: FloatingActionBubble(
         // Menu items
         items: <Bubble>[
-          // Floating action menu item
-          Bubble(
-            title: "Export",
-            bubbleColor: DARK_BLUE,
-            icon: const MenuItem(assetImageURL: "assets/export.png"),
-            titleStyle: const TextStyle(fontSize: 16, color: Colors.white),
-            onPress: () {
-              _animationController.reverse();
-            },
-          ),
+          if (route == "")
+            Bubble(
+              title: "Export",
+              bubbleColor: DARK_BLUE,
+              icon: const MenuItem(assetImageURL: "assets/export.png"),
+              titleStyle: const TextStyle(fontSize: 16, color: Colors.white),
+              onPress: () {
+                _animationController.reverse();
+              },
+            ),
           // Floating action menu item
           Bubble(
             title: "Help",
@@ -57,17 +58,30 @@ class _MenuBubbleState extends State<MenuBubble>
               _animationController.reverse();
             },
           ),
-          //Floating action menu item
-          Bubble(
-            title: "Back",
-            bubbleColor: DARK_BLUE,
-            icon: const MenuItem(assetImageURL: "assets/arrow_back.png"),
-            titleStyle: const TextStyle(fontSize: 16, color: Colors.white),
-            onPress: () {
-              _animationController.reverse();
-            },
-          ),
-          if (ModalRoute.of(context).settings.name != "/")
+          if (route == "")
+            Bubble(
+              title: "Back",
+              bubbleColor: DARK_BLUE,
+              icon: const MenuItem(assetImageURL: "assets/arrow_back.png"),
+              titleStyle: const TextStyle(fontSize: 16, color: Colors.white),
+              onPress: () {
+                _animationController.reverse();
+              },
+            ),
+          if (route == "/addWallet" || route == "/loginWithSeed")
+            Bubble(
+              title: "Home",
+              bubbleColor: DARK_BLUE,
+              icon: const MenuItem(assetImageURL: "assets/home.png"),
+              titleStyle: const TextStyle(fontSize: 16, color: Colors.white),
+              onPress: () {
+                _animationController.reverse();
+                Navigator.pop(context);
+              },
+            ),
+          if (route != "/" &&
+              route != "/addWallet" &&
+              route != "/loginWithSeed")
             Bubble(
               title: "Logout",
               bubbleColor: DARK_BLUE,
