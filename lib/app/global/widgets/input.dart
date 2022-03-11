@@ -8,12 +8,16 @@ class Input extends StatefulWidget {
       this.controller,
       this.label = "",
       this.obscureText = false,
-      this.maxWidth = 400})
+      this.maxWidth = 400,
+      this.node,
+      this.onSubmited})
       : super(key: key);
   final TextEditingController controller;
   final String label;
   final bool obscureText;
   final double maxWidth;
+  final FocusNode node;
+  final Function onSubmited;
   @override
   State<Input> createState() => _InputState();
 }
@@ -36,6 +40,10 @@ class _InputState extends State<Input> {
             ),
           ),
           TextField(
+            onSubmitted: (stringValue) {
+              if (widget.onSubmited != null) widget.onSubmited();
+            },
+            focusNode: widget.node,
             obscureText: widget.obscureText && isPasswordHidden,
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
             decoration: InputDecoration(

@@ -18,7 +18,21 @@ class AddWalletCard extends StatefulWidget {
 class _AddWalletCardState extends State<AddWalletCard> {
   TextEditingController walletNameController = TextEditingController();
   TextEditingController walletPasswordController = TextEditingController();
+  FocusNode walletNameNode = FocusNode();
+  FocusNode walletPasswordNode = FocusNode();
+  @override
+  void initState() {
+    super.initState();
+  }
 
+  @override
+  void dispose() {
+    super.dispose();
+    walletNameNode.dispose();
+    walletPasswordNode.dispose();
+  }
+
+  void createWallet() {}
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -74,6 +88,11 @@ class _AddWalletCardState extends State<AddWalletCard> {
           Input(
             controller: walletNameController,
             label: "Nome da Carteira",
+            node: walletNameNode,
+            onSubmited: () {
+              walletNameNode.unfocus();
+              walletPasswordNode.requestFocus();
+            },
           ),
           Container(
             height: 0,
@@ -83,27 +102,56 @@ class _AddWalletCardState extends State<AddWalletCard> {
             controller: walletPasswordController,
             label: "Senha",
             obscureText: true,
+            node: walletPasswordNode,
+            onSubmited: () {
+              walletPasswordNode.unfocus();
+              createWallet();
+            },
           ),
           Container(
             height: 0,
             constraints: const BoxConstraints(minHeight: 20),
           ),
-          Container(
-            margin: EdgeInsets.only(top: height / 20, bottom: 20),
-            child: MaterialButton(
-              hoverColor: LIGHT_BLUE,
-              onPressed: () {},
-              child: const Text(
-                "Criar",
-                style: TextStyle(color: WHITE, fontSize: 30),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin:
+                    EdgeInsets.only(top: height / 20, bottom: 30, right: 30),
+                child: MaterialButton(
+                  hoverColor: Colors.transparent,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    "Voltar",
+                    style: TextStyle(color: LIGHT_BLUE, fontSize: 30),
+                  ),
+                  height: 60,
+                  minWidth: 190,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  elevation: 5,
+                ),
               ),
-              height: 60,
-              minWidth: 250,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              elevation: 5,
-              color: DARK_BLUE,
-            ),
+              Container(
+                margin: EdgeInsets.only(top: height / 20, bottom: 30),
+                child: MaterialButton(
+                  hoverColor: LIGHT_BLUE,
+                  onPressed: createWallet,
+                  child: const Text(
+                    "Criar",
+                    style: TextStyle(color: WHITE, fontSize: 30),
+                  ),
+                  height: 60,
+                  minWidth: 190,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  elevation: 5,
+                  color: DARK_BLUE,
+                ),
+              ),
+            ],
           ),
         ],
       ),
