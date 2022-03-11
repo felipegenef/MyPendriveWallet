@@ -17,47 +17,55 @@ class _HomePageState extends State<HomePage> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     var appBarHeight = (height / 10);
+    var isSmallScreen = width < 800;
     return Scaffold(
       backgroundColor: BACKGROUND,
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: const MenuBubble(),
       body: Stack(
         children: [
-          Container(
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 500),
+            width: width,
             height: height,
+            constraints: BoxConstraints(maxWidth: width, maxHeight: height),
             padding: EdgeInsets.only(top: appBarHeight + 20),
             // color: Colors.red,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                HomeCard(
-                  onClick: () {
-                    print("add");
-                    Navigator.pushNamed(context, "/addWallet");
-                  },
-                  imageURL: "assets/add.png",
-                  label: "Create new Wallet",
-                ),
-                HomeCard(
-                  onClick: () {
-                    print("seed");
-                    Navigator.pushNamed(context, "/loginWithSeed");
-                  },
-                  imageURL: "assets/user.png",
-                  label: "Login with Seed",
-                ),
-                HomeCard(
-                  onClick: () {
-                    print("password");
-                  },
-                  imageURL: "assets/lock.png",
-                  label: "Enter password",
-                ),
-              ],
+            child: Container(
+              constraints: BoxConstraints(maxWidth: width, maxHeight: height),
+              child: Flex(
+                direction: isSmallScreen ? Axis.vertical : Axis.horizontal,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  HomeCard(
+                    onClick: () {
+                      print("add");
+                      Navigator.pushNamed(context, "/addWallet");
+                    },
+                    imageURL: "assets/add.png",
+                    label: "Create new Wallet",
+                  ),
+                  HomeCard(
+                    onClick: () {
+                      print("seed");
+                      Navigator.pushNamed(context, "/loginWithSeed");
+                    },
+                    imageURL: "assets/user.png",
+                    label: "Login with Seed",
+                  ),
+                  HomeCard(
+                    onClick: () {
+                      print("password");
+                    },
+                    imageURL: "assets/lock.png",
+                    label: "Enter password",
+                  ),
+                ],
+              ),
             ),
           ),
-          WatermarkLogo()
+          const WatermarkLogo()
         ],
       ),
     );

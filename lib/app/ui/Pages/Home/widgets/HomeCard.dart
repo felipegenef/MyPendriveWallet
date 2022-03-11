@@ -17,6 +17,7 @@ class _HomeCardState extends State<HomeCard> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
+    var isSmallScreen = width < 800;
     return InkWell(
       borderRadius: BorderRadius.circular(30),
       onTap: () {
@@ -30,6 +31,8 @@ class _HomeCardState extends State<HomeCard> {
       child: AnimatedContainer(
         height: width / 4,
         width: width / 4.2,
+        margin: const EdgeInsets.all(5),
+        constraints: const BoxConstraints(minWidth: 252, minHeight: 264),
         curve: Curves.linear,
         duration: const Duration(milliseconds: 300),
         decoration: BoxDecoration(
@@ -62,7 +65,7 @@ class _HomeCardState extends State<HomeCard> {
                 ],
               ),
               child: Image(
-                width: width / 9,
+                width: width / 9 < 130 ? 130 : width / 9,
                 image: AssetImage(widget.imageURL),
               ),
             ),
@@ -70,7 +73,7 @@ class _HomeCardState extends State<HomeCard> {
               widget.label,
               style: TextStyle(
                   color: !isHovered ? DARK_BLUE : BACKGROUND,
-                  fontSize: width / 45,
+                  fontSize: width / 45 < 23 ? 23 : width / 45,
                   fontWeight: FontWeight.bold),
             )
           ],
