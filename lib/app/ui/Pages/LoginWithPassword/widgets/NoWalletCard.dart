@@ -22,8 +22,8 @@ class _NoWalletCardState extends State<NoWalletCard> {
     var height = MediaQuery.of(context).size.height;
 
     return Container(
-      height: height,
-      width: width,
+      height: 550,
+      width: 650,
       constraints: const BoxConstraints(
         minWidth: 650,
         maxWidth: 650,
