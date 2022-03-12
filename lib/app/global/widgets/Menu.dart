@@ -68,7 +68,9 @@ class _MenuBubbleState extends State<MenuBubble>
                 _animationController.reverse();
               },
             ),
-          if (route == "/addWallet" || route == "/loginWithSeed")
+          if (route == "/addWallet" ||
+              route == "/loginWithSeed" ||
+              route == "/loginWithPassword")
             Bubble(
               title: "Home",
               bubbleColor: DARK_BLUE,
@@ -79,9 +81,7 @@ class _MenuBubbleState extends State<MenuBubble>
                 Navigator.pop(context);
               },
             ),
-          if (route != "/" &&
-              route != "/addWallet" &&
-              route != "/loginWithSeed")
+          if (route == "/myWallets")
             Bubble(
               title: "Logout",
               bubbleColor: DARK_BLUE,

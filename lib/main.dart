@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_pendrive_wallet_desktop/app/constants.dart';
 import 'package:my_pendrive_wallet_desktop/app/ui/Pages/AddWallet/AddWallet.dart';
+import 'package:my_pendrive_wallet_desktop/app/ui/Pages/LoginWithPassword/LoginWithPassword.dart';
+import 'package:my_pendrive_wallet_desktop/app/ui/Pages/LoginWithPassword/widgets/LoginWithPasswordCard.dart';
 import 'package:my_pendrive_wallet_desktop/app/ui/Pages/LoginWithSeed/LoginWithSeed.dart';
 import 'package:pie_chart/pie_chart.dart';
 
@@ -32,6 +34,8 @@ class MyApp extends StatelessWidget {
               textDirection: TextDirection.ltr, child: AddWalletPage()),
           '/loginWithSeed': (context) => const Directionality(
               textDirection: TextDirection.ltr, child: LoginWithSeedPage()),
+          '/loginWithPassword': (context) => const Directionality(
+              textDirection: TextDirection.ltr, child: LoginWithPasswordPage()),
         });
   }
 }

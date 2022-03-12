@@ -33,35 +33,41 @@ class _HomePageState extends State<HomePage> {
             // color: Colors.red,
             child: Container(
               constraints: BoxConstraints(maxWidth: width, maxHeight: height),
-              child: Flex(
-                direction: isSmallScreen ? Axis.vertical : Axis.horizontal,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  HomeCard(
-                    onClick: () {
-                      print("add");
-                      Navigator.pushNamed(context, "/addWallet");
-                    },
-                    imageURL: "assets/add.png",
-                    label: "Create new Wallet",
-                  ),
-                  HomeCard(
-                    onClick: () {
-                      print("seed");
-                      Navigator.pushNamed(context, "/loginWithSeed");
-                    },
-                    imageURL: "assets/user.png",
-                    label: "Login with Seed",
-                  ),
-                  HomeCard(
-                    onClick: () {
-                      print("password");
-                    },
-                    imageURL: "assets/lock.png",
-                    label: "Enter password",
-                  ),
-                ],
+              alignment: Alignment.center,
+              child: SingleChildScrollView(
+                controller: ScrollController(
+                    initialScrollOffset: 0, keepScrollOffset: false),
+                child: Flex(
+                  direction: isSmallScreen ? Axis.vertical : Axis.horizontal,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    HomeCard(
+                      onClick: () {
+                        print("add");
+                        Navigator.pushNamed(context, "/addWallet");
+                      },
+                      imageURL: "assets/add.png",
+                      label: "Create new Wallet",
+                    ),
+                    HomeCard(
+                      onClick: () {
+                        print("seed");
+                        Navigator.pushNamed(context, "/loginWithSeed");
+                      },
+                      imageURL: "assets/user.png",
+                      label: "Login with Seed",
+                    ),
+                    HomeCard(
+                      onClick: () {
+                        print("password");
+                        Navigator.pushNamed(context, "/loginWithPassword");
+                      },
+                      imageURL: "assets/lock.png",
+                      label: "Enter password",
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
