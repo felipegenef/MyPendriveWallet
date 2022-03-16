@@ -8,7 +8,8 @@ const ETHEREUM_COLOR = Color(0xff9333ea);
 const LITECOIN_COLOR = Color(0xffc026d3);
 const TRANSPARENT = Color.fromRGBO(226, 232, 240, 0.4);
 const BACKGROUND = Color(0xff1e293b);
-const INPUT_BACKGROUND = Color(0xffC4C4C4);
+// const INPUT_BACKGROUND = Color(0xffC4C4C4);
+const INPUT_BACKGROUND = Color(0xffFBF9F9);
 const BITCOIN_GRADIENT_COLOR = [
   BITCOIN_COLOR,
   Color(0xfffb923c),

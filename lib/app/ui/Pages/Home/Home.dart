@@ -3,6 +3,7 @@ import 'package:my_pendrive_wallet_desktop/app/global/widgets/whatermarkLogo.dar
 import 'package:my_pendrive_wallet_desktop/app/ui/Pages/Home/widgets/HomeCard.dart';
 import '../../../constants.dart';
 import '../../../global/widgets/Menu.dart';
+import 'package:localized/localized.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -44,15 +45,13 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     HomeCard(
                       onClick: () {
-                        print("add");
                         Navigator.pushNamed(context, "/addWallet");
                       },
                       imageURL: "assets/add.png",
-                      label: "Create new Wallet",
+                      label: "Create new Wallet".localized(context),
                     ),
                     HomeCard(
                       onClick: () {
-                        print("seed");
                         Navigator.pushNamed(context, "/loginWithSeed");
                       },
                       imageURL: "assets/user.png",

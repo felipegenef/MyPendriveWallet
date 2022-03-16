@@ -5,21 +5,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../constants.dart';
 
-class AddWalletCard extends StatefulWidget {
-  const AddWalletCard({
+class LoginCard extends StatefulWidget {
+  const LoginCard({
     Key key,
     this.imageURL,
+    this.walletName = "",
+    this.back,
   }) : super(key: key);
   final String imageURL;
+  final String walletName;
+  final Function back;
 
   @override
-  State<AddWalletCard> createState() => _AddWalletCardState();
+  State<LoginCard> createState() => _AddWalletCardState();
 }
 
-class _AddWalletCardState extends State<AddWalletCard> {
-  TextEditingController walletNameController = TextEditingController();
+class _AddWalletCardState extends State<LoginCard> {
   TextEditingController walletPasswordController = TextEditingController();
-  FocusNode walletNameNode = FocusNode();
   FocusNode walletPasswordNode = FocusNode();
   @override
   void initState() {
@@ -29,22 +31,10 @@ class _AddWalletCardState extends State<AddWalletCard> {
   @override
   void dispose() {
     super.dispose();
-    walletNameNode.dispose();
     walletPasswordNode.dispose();
   }
 
-  void createWallet() async {
-    var prefs = await SharedPreferences.getInstance();
-    var walletNames = prefs.getStringList("walletNames");
-    if (walletNames == null) {
-      prefs.setStringList("walletNames", [walletNameController.text]);
-    } else {
-      prefs.setStringList(
-          "walletNames", [...walletNames, walletNameController.text]);
-    }
-    prefs.setString("currentWallet", walletNameController.text);
-    Navigator.popAndPushNamed(context, "/loginWithPassword");
-  }
+  void login() {}
 
   @override
   Widget build(BuildContext context) {
@@ -55,10 +45,10 @@ class _AddWalletCardState extends State<AddWalletCard> {
       height: height,
       width: width,
       constraints: const BoxConstraints(
-        minWidth: 390,
-        maxWidth: 950,
-        minHeight: 295,
-        maxHeight: 660,
+        minWidth: 290,
+        maxWidth: 750,
+        minHeight: 195,
+        maxHeight: 560,
       ),
       // margin: const EdgeInsets.symmetric(horizontal: 60),
       decoration: BoxDecoration(
@@ -94,19 +84,24 @@ class _AddWalletCardState extends State<AddWalletCard> {
               image: AssetImage(widget.imageURL),
             ),
           ),
-          Container(
-            height: 0,
-            constraints: const BoxConstraints(minHeight: 30),
+          // Container(
+          //   height: 0,
+          //   constraints: const BoxConstraints(minHeight: 10),
+          // ),
+          Text(
+            widget.walletName,
+            style: const TextStyle(
+                color: DARK_BLUE, fontSize: 47, fontWeight: FontWeight.w600),
           ),
-          Input(
-            controller: walletNameController,
-            label: "Nome da Carteira",
-            node: walletNameNode,
-            onSubmited: () {
-              walletNameNode.unfocus();
-              walletPasswordNode.requestFocus();
-            },
-          ),
+          // Input(
+          //   controller: walletNameController,
+          //   label: "Nome da Carteira",
+          //   node: walletNameNode,
+          //   onSubmited: () {
+          //     walletNameNode.unfocus();
+          //     walletPasswordNode.requestFocus();
+          //   },
+          // ),
           Container(
             height: 0,
             constraints: const BoxConstraints(minHeight: 10),
@@ -118,7 +113,6 @@ class _AddWalletCardState extends State<AddWalletCard> {
             node: walletPasswordNode,
             onSubmited: () {
               walletPasswordNode.unfocus();
-              createWallet();
             },
           ),
           Container(
@@ -134,7 +128,7 @@ class _AddWalletCardState extends State<AddWalletCard> {
                 child: MaterialButton(
                   hoverColor: Colors.transparent,
                   onPressed: () {
-                    Navigator.pop(context);
+                    if (widget.back != null) widget.back();
                   },
                   child: const Text(
                     "Voltar",
@@ -151,9 +145,9 @@ class _AddWalletCardState extends State<AddWalletCard> {
                 margin: EdgeInsets.only(top: height / 20, bottom: 30),
                 child: MaterialButton(
                   hoverColor: LIGHT_BLUE,
-                  onPressed: createWallet,
+                  onPressed: login,
                   child: const Text(
-                    "Criar",
+                    "Entrar",
                     style: TextStyle(color: WHITE, fontSize: 30),
                   ),
                   height: 60,

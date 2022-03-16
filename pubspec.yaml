@@ -14,6 +14,10 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   pie_chart: ^5.1.0
+  localized: ^2.1.1
+  shared_preferences: ^2.0.13
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
@@ -23,6 +27,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/i18n/
     - assets/logo.png
     - assets/menu.png
     - assets/arrow_back.png

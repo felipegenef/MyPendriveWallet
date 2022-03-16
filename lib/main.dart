@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:my_pendrive_wallet_desktop/app/constants.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:localized/localized.dart';
+
 import 'package:my_pendrive_wallet_desktop/app/ui/Pages/AddWallet/AddWallet.dart';
 import 'package:my_pendrive_wallet_desktop/app/ui/Pages/LoginWithPassword/LoginWithPassword.dart';
-import 'package:my_pendrive_wallet_desktop/app/ui/Pages/LoginWithPassword/widgets/LoginWithPasswordCard.dart';
 import 'package:my_pendrive_wallet_desktop/app/ui/Pages/LoginWithSeed/LoginWithSeed.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 import 'app/ui/Pages/Home/Home.dart';
+// create files
+//flutter pub run localized:main -c -l en,de,ru,pt,it
+// generate translations from api key
+//flutter pub run localized:main -t -l ru,en,de,pt -p Microsoft -m YOUR_MICROSOFT_KEY -r YOUR_REGION -n 100
 
 void main() {
   runApp(const MyApp());
 }
+
+final locales = [
+  Locale('de', 'DE'),
+  Locale('en', 'EN'),
+  Locale('ru', 'RU'),
+  Locale('pt', 'PT'),
+  Locale('pt', 'BR'),
+];
 
 class MyApp extends StatelessWidget {
   const MyApp({Key key}) : super(key: key);
@@ -20,6 +33,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Flutter Demo',
+        supportedLocales: locales,
+        locale: Locale('pt', 'BR'),
+        localizationsDelegates: [
+          GlobalCupertinoLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          LocalizationService.delegate(locales: locales),
+        ],
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,

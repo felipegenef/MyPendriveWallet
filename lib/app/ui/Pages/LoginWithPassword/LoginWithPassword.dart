@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_pendrive_wallet_desktop/app/global/widgets/whatermarkLogo.dart';
+import 'package:my_pendrive_wallet_desktop/app/ui/Pages/LoginWithPassword/widgets/LoginCard.dart';
 import 'package:my_pendrive_wallet_desktop/app/ui/Pages/LoginWithPassword/widgets/LoginWithPasswordCard.dart';
 import 'package:my_pendrive_wallet_desktop/app/ui/Pages/LoginWithPassword/widgets/NoWalletCard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants.dart';
 import '../../../global/widgets/Menu.dart';
@@ -15,16 +17,35 @@ class LoginWithPasswordPage extends StatefulWidget {
 
 class _LoginWithPasswordPageState extends State<LoginWithPasswordPage> {
   var wallets = [];
+  String currentWalletName = "";
   @override
   void initState() {
     super.initState();
-    var list = [];
-    // for (var i = 1; i < 5; i++) {
-    //   list.add("carteira " + i.toString());
-    // }
-    setState(() {
-      wallets = list;
-    });
+    getWallets();
+  }
+
+  void getWallets() async {
+    var currentWalletExists = await checkCurrentWalletExistence();
+    var prefs = await SharedPreferences.getInstance();
+    var walletNames = prefs.getStringList("walletNames");
+    if (walletNames != null && currentWalletExists) {
+      setState(() {
+        wallets = walletNames;
+      });
+    }
+  }
+
+  Future<bool> checkCurrentWalletExistence() async {
+    var prefs = await SharedPreferences.getInstance();
+    var currentWallet = prefs.getString("currentWallet");
+    if (currentWallet == null) {
+      return false;
+    } else {
+      setState(() {
+        currentWalletName = currentWallet;
+      });
+      return true;
+    }
   }
 
   @override
@@ -53,17 +74,30 @@ class _LoginWithPasswordPageState extends State<LoginWithPasswordPage> {
                     width < 825 ? WrapAlignment.center : WrapAlignment.start,
                 direction: width < 450 ? Axis.vertical : Axis.horizontal,
                 children: [
-                  for (var wallet in wallets)
-                    LoginWithPasswordCard(
-                      onClick: () {
-                        print("add");
-                        Navigator.pushNamed(context, "/addWallet");
-                      },
-                      label: wallet,
-                    ),
-                  if (wallets.length == 0)
+                  if (currentWalletName == "")
+                    for (var wallet in wallets)
+                      LoginWithPasswordCard(
+                        onClick: () {
+                          print("add");
+                          setState(() {
+                            currentWalletName = wallet;
+                          });
+                        },
+                        label: wallet,
+                      ),
+                  if (wallets.isEmpty && currentWalletName == "")
                     const NoWalletCard(
                       imageURL: "assets/user.png",
+                    ),
+                  if (currentWalletName != "")
+                    LoginCard(
+                      back: () {
+                        setState(() {
+                          currentWalletName = "";
+                        });
+                      },
+                      imageURL: "assets/user.png",
+                      walletName: currentWalletName,
                     )
                 ],
               ),
