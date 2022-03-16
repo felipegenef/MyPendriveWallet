@@ -25,26 +25,26 @@ class _LoginWithPasswordPageState extends State<LoginWithPasswordPage> {
   }
 
   void getWallets() async {
-    var currentWalletExists = await checkCurrentWalletExistence();
+    await checkCurrentWalletExistence();
     var prefs = await SharedPreferences.getInstance();
     var walletNames = prefs.getStringList("walletNames");
-    if (walletNames != null && currentWalletExists) {
+    if (walletNames != null) {
       setState(() {
         wallets = walletNames;
       });
     }
   }
 
-  Future<bool> checkCurrentWalletExistence() async {
+  void checkCurrentWalletExistence() async {
     var prefs = await SharedPreferences.getInstance();
     var currentWallet = prefs.getString("currentWallet");
+    print(currentWallet);
+    prefs.remove("currentWallet");
     if (currentWallet == null) {
-      return false;
     } else {
       setState(() {
         currentWalletName = currentWallet;
       });
-      return true;
     }
   }
 

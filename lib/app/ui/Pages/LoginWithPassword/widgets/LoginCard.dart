@@ -84,24 +84,13 @@ class _AddWalletCardState extends State<LoginCard> {
               image: AssetImage(widget.imageURL),
             ),
           ),
-          // Container(
-          //   height: 0,
-          //   constraints: const BoxConstraints(minHeight: 10),
-          // ),
           Text(
             widget.walletName,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
             style: const TextStyle(
                 color: DARK_BLUE, fontSize: 47, fontWeight: FontWeight.w600),
           ),
-          // Input(
-          //   controller: walletNameController,
-          //   label: "Nome da Carteira",
-          //   node: walletNameNode,
-          //   onSubmited: () {
-          //     walletNameNode.unfocus();
-          //     walletPasswordNode.requestFocus();
-          //   },
-          // ),
           Container(
             height: 0,
             constraints: const BoxConstraints(minHeight: 10),

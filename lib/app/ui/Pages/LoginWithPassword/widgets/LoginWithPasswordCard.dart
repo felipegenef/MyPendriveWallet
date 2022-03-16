@@ -30,6 +30,7 @@ class _LoginWithPasswordCardState extends State<LoginWithPasswordCard> {
       child: AnimatedContainer(
         height: 252,
         width: 264,
+        padding: const EdgeInsets.all(2.5),
         margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
         constraints: const BoxConstraints(
             minWidth: 252, maxWidth: 352, minHeight: 264, maxHeight: 364),
@@ -71,11 +72,13 @@ class _LoginWithPasswordCardState extends State<LoginWithPasswordCard> {
             ),
             Text(
               widget.label,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
               style: TextStyle(
                   color: !isHovered ? DARK_BLUE : BACKGROUND,
                   fontSize: 23,
                   fontWeight: FontWeight.bold),
-            )
+            ),
           ],
         ),
       ),
