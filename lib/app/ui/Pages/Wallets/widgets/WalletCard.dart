@@ -24,6 +24,7 @@ class WalletCard extends StatefulWidget {
 
 class _AddWalletCardState extends State<WalletCard> {
   final double minQrCodeWidth = 250.0;
+  final double minAddressBarWidth = 450.0;
   final double minTransferButtonWidth = 70;
   final double minTransferButtonFontSize = 20;
   final double minCoinIconSize = 130;
@@ -32,21 +33,20 @@ class _AddWalletCardState extends State<WalletCard> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    print(height / 5);
+
     return Container(
       clipBehavior: Clip.antiAlias,
-      height: height,
-      width: width,
-      margin: const EdgeInsets.symmetric(vertical: 20),
+      // height: height,
+      // width: width,
+      margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
       padding: EdgeInsets.symmetric(
           vertical: (height / 1.5) / 20, horizontal: (width / 1.1) / 30),
-      constraints: BoxConstraints(
-        minWidth: width / 1.1,
-        maxWidth: width / 1.1,
-        minHeight: height / 1.5,
-        maxHeight: height / 1.5,
-      ),
-      // margin: const EdgeInsets.symmetric(horizontal: 60),
+      // constraints: BoxConstraints(
+      //     minWidth: width / 1.1,
+      //     maxWidth: width / 1.1,
+      //     minHeight: height / 1.5,
+      //     maxHeight: height / 1.5,
+      //     ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: TRANSPARENT,
@@ -68,8 +68,8 @@ class _AddWalletCardState extends State<WalletCard> {
             children: [
               Image(
                 image: AssetImage(widget.imageURL),
-                height:
-                    height / 5 < minCoinIconSize ? minCoinIconSize : height / 5,
+                width:
+                    width / 10 < minCoinIconSize ? minCoinIconSize : width / 10,
               ),
               Text(
                 widget.coinName,
@@ -89,15 +89,18 @@ class _AddWalletCardState extends State<WalletCard> {
                 height: 10,
               ),
               Container(
-                width: width / 5 < minQrCodeWidth ? minQrCodeWidth : width / 5,
+                width: width / 3 < minAddressBarWidth
+                    ? minAddressBarWidth
+                    : width / 3,
                 height: 60,
                 alignment: Alignment.center,
-                decoration: BoxDecoration(color: WHITE),
+                decoration: const BoxDecoration(color: WHITE),
                 child: Text(
                   widget.walletAddress,
                   style: TextStyle(
                       color: Colors.black,
-                      fontSize: width / 100,
+                      fontSize:
+                          width / 3 < minAddressBarWidth ? 18 : width / 60,
                       fontWeight: FontWeight.bold),
                 ),
               )
@@ -106,6 +109,10 @@ class _AddWalletCardState extends State<WalletCard> {
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              // Allways under the QrCode height
+              SizedBox(
+                height: width / 5 < minQrCodeWidth ? minQrCodeWidth : width / 5,
+              ),
               MaterialButton(
                 onPressed: () {},
                 child: Column(
