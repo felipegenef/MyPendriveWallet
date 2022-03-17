@@ -5,6 +5,7 @@ import 'package:localized/localized.dart';
 import 'package:my_pendrive_wallet_desktop/app/ui/Pages/AddWallet/AddWallet.dart';
 import 'package:my_pendrive_wallet_desktop/app/ui/Pages/LoginWithPassword/LoginWithPassword.dart';
 import 'package:my_pendrive_wallet_desktop/app/ui/Pages/LoginWithSeed/LoginWithSeed.dart';
+import 'package:my_pendrive_wallet_desktop/app/ui/Pages/Wallets/Wallets.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 import 'app/ui/Pages/Home/Home.dart';
@@ -56,6 +57,8 @@ class MyApp extends StatelessWidget {
               textDirection: TextDirection.ltr, child: LoginWithSeedPage()),
           '/loginWithPassword': (context) => const Directionality(
               textDirection: TextDirection.ltr, child: LoginWithPasswordPage()),
+          '/wallets': (context) => const Directionality(
+              textDirection: TextDirection.ltr, child: WalletsPage()),
         });
   }
 }

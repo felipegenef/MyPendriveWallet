@@ -78,7 +78,6 @@ class _LoginWithPasswordPageState extends State<LoginWithPasswordPage> {
                     for (var wallet in wallets)
                       LoginWithPasswordCard(
                         onClick: () {
-                          print("add");
                           setState(() {
                             currentWalletName = wallet;
                           });

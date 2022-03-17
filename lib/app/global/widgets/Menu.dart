@@ -58,6 +58,16 @@ class _MenuBubbleState extends State<MenuBubble>
               _animationController.reverse();
             },
           ),
+          if (route == "/wallets")
+            Bubble(
+              title: "Export",
+              bubbleColor: DARK_BLUE,
+              icon: const MenuItem(assetImageURL: "assets/export.png"),
+              titleStyle: const TextStyle(fontSize: 16, color: Colors.white),
+              onPress: () {
+                _animationController.reverse();
+              },
+            ),
           if (route == "")
             Bubble(
               title: "Back",

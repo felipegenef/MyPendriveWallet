@@ -17,6 +17,7 @@ dependencies:
   localized: ^2.1.1
   shared_preferences: ^2.0.13
   encrypted_shared_preferences: ^3.0.0
+  qr_flutter: ^4.0.0
   flutter_localizations:
     sdk: flutter
 
@@ -45,15 +46,14 @@ flutter:
     - assets/transfer.png
     - assets/user.png
     - assets/wallet.png
-    # - assets/cryptoIcons/32x32/Bitcoin.png
-    # - assets/cryptoIcons/32x32/Ethereum.png
-    # - assets/cryptoIcons/64x64/Bitcoin.png
-    # - assets/cryptoIcons/64x64/Ethereum.png
-    # - assets/cryptoIcons/128x128/Bitcoin.png
-    # - assets/cryptoIcons/128x128/Ethereum.png
-    # - assets/cryptoIcons/256x256/Bitcoin.png
-    # - assets/cryptoIcons/256x256/Ethereum.png
-  #   - images/a_dot_ham.jpeg
+    - assets/cryptoIcons/32x32/Bitcoin.png
+    - assets/cryptoIcons/32x32/Ethereum.png
+    - assets/cryptoIcons/64x64/Bitcoin.png
+    - assets/cryptoIcons/64x64/Ethereum.png
+    - assets/cryptoIcons/128x128/Bitcoin.png
+    - assets/cryptoIcons/128x128/Ethereum.png
+    - assets/cryptoIcons/256x256/Bitcoin.png
+    - assets/cryptoIcons/256x256/Ethereum.png
   # fonts:
   #   - family: MyCustomIcons
   #     fonts:

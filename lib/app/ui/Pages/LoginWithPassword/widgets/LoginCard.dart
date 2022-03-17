@@ -36,11 +36,14 @@ class _AddWalletCardState extends State<LoginCard> {
   }
 
   void login() async {
+    var prefs = await SharedPreferences.getInstance();
     var encryptedPrefs = EncryptedSharedPreferences();
     var password =
         await encryptedPrefs.getString("Password " + widget.walletName);
-    print(password == walletPasswordController.text);
-    // TODO: var seed = await encryptedPrefs.getString("Seed " + widget.walletName);
+    if (password == walletPasswordController.text) {
+      Navigator.popAndPushNamed(context, "/wallets");
+      prefs.setString("LoggedWallet", widget.walletName);
+    }
   }
 
   @override
