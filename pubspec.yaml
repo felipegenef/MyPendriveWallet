@@ -16,6 +16,7 @@ dependencies:
   pie_chart: ^5.1.0
   localized: ^2.1.1
   shared_preferences: ^2.0.13
+  encrypted_shared_preferences: ^3.0.0
   flutter_localizations:
     sdk: flutter
 

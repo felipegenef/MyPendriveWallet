@@ -1,3 +1,4 @@
+import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_pendrive_wallet_desktop/app/global/widgets/input.dart';
@@ -35,6 +36,7 @@ class _AddWalletCardState extends State<AddWalletCard> {
 
   void createWallet() async {
     var prefs = await SharedPreferences.getInstance();
+    var encryptedPrefs = EncryptedSharedPreferences();
     var walletNames = prefs.getStringList("walletNames");
     if (walletNames == null) {
       prefs.setStringList("walletNames", [walletNameController.text]);
@@ -42,6 +44,10 @@ class _AddWalletCardState extends State<AddWalletCard> {
       prefs.setStringList(
           "walletNames", [...walletNames, walletNameController.text]);
     }
+    encryptedPrefs.setString(
+        "Password " + walletNameController.text, walletPasswordController.text);
+    //  encryptedPrefs.setString("Seed " + walletNameController.text,
+    // "TODO: add seed here");
     prefs.setString("currentWallet", walletNameController.text);
     Navigator.popAndPushNamed(context, "/loginWithPassword");
   }

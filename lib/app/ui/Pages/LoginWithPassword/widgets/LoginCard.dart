@@ -1,3 +1,4 @@
+import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_pendrive_wallet_desktop/app/global/widgets/input.dart';
@@ -34,7 +35,13 @@ class _AddWalletCardState extends State<LoginCard> {
     walletPasswordNode.dispose();
   }
 
-  void login() {}
+  void login() async {
+    var encryptedPrefs = EncryptedSharedPreferences();
+    var password =
+        await encryptedPrefs.getString("Password " + widget.walletName);
+    print(password == walletPasswordController.text);
+    // TODO: var seed = await encryptedPrefs.getString("Seed " + widget.walletName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +104,7 @@ class _AddWalletCardState extends State<LoginCard> {
           ),
           Input(
             controller: walletPasswordController,
-            label: "Senha",
+            label: "",
             obscureText: true,
             node: walletPasswordNode,
             onSubmited: () {
@@ -136,7 +143,7 @@ class _AddWalletCardState extends State<LoginCard> {
                   hoverColor: LIGHT_BLUE,
                   onPressed: login,
                   child: const Text(
-                    "Entrar",
+                    "Login",
                     style: TextStyle(color: WHITE, fontSize: 30),
                   ),
                   height: 60,
