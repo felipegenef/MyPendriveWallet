@@ -27,6 +27,7 @@ class _AddWalletCardState extends State<LoginCard> {
   @override
   void initState() {
     super.initState();
+    walletPasswordNode.requestFocus();
   }
 
   @override
@@ -112,6 +113,7 @@ class _AddWalletCardState extends State<LoginCard> {
             node: walletPasswordNode,
             onSubmited: () {
               walletPasswordNode.unfocus();
+              login();
             },
           ),
           Container(
