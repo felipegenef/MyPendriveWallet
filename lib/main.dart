@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localized/localized.dart';
+import 'package:my_pendrive_wallet_desktop/app/Custom/lib/src/easy_loading.dart';
+import 'package:my_pendrive_wallet_desktop/app/constants.dart';
 
 import 'package:my_pendrive_wallet_desktop/app/ui/Pages/AddWallet/AddWallet.dart';
 import 'package:my_pendrive_wallet_desktop/app/ui/Pages/LoginWithPassword/LoginWithPassword.dart';
@@ -46,6 +48,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         initialRoute: "/",
+        builder: EasyLoading.init(),
         routes: {
           // When navigating to the "/" route, build the FirstScreen widget.
           '/': (context) => const Directionality(

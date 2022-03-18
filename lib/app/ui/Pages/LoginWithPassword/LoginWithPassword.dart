@@ -1,11 +1,13 @@
 import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:my_pendrive_wallet_desktop/app/global/widgets/whatermarkLogo.dart';
 import 'package:my_pendrive_wallet_desktop/app/ui/Pages/LoginWithPassword/widgets/LoginCard.dart';
 import 'package:my_pendrive_wallet_desktop/app/ui/Pages/LoginWithPassword/widgets/LoginWithPasswordCard.dart';
 import 'package:my_pendrive_wallet_desktop/app/ui/Pages/LoginWithPassword/widgets/NoWalletCard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../Custom/lib/flutter_easyloading.dart';
 import '../../../constants.dart';
 import '../../../global/widgets/Menu.dart';
 
@@ -21,6 +23,7 @@ class _LoginWithPasswordPageState extends State<LoginWithPasswordPage> {
   String currentWalletName = "";
   bool isBeenDraged = false;
   bool trashHoved = false;
+
   @override
   void initState() {
     super.initState();
@@ -28,7 +31,7 @@ class _LoginWithPasswordPageState extends State<LoginWithPasswordPage> {
   }
 
   void getWallets() async {
-    await checkCurrentWalletExistence();
+    checkCurrentWalletExistence();
     var prefs = await SharedPreferences.getInstance();
     var walletNames = prefs.getStringList("walletNames");
     if (walletNames != null) {
@@ -40,13 +43,13 @@ class _LoginWithPasswordPageState extends State<LoginWithPasswordPage> {
 
   deleteWallet(DragTargetDetails<String> details) async {
     var prefs = await SharedPreferences.getInstance();
-    var encryptedPrefs = EncryptedSharedPreferences();
     var walletNames = prefs.getStringList("walletNames");
     walletNames.remove(details.data);
     prefs.setStringList("walletNames", walletNames);
     prefs.remove("Password " + details.data);
     prefs.remove("Seed " + details.data);
     getWallets();
+    await EasyLoading.showSuccess('Carteira excluida com sucesso!');
   }
 
   void checkCurrentWalletExistence() async {
