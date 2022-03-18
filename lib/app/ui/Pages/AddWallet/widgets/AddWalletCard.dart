@@ -25,6 +25,7 @@ class _AddWalletCardState extends State<AddWalletCard> {
   @override
   void initState() {
     super.initState();
+    walletNameNode.requestFocus();
   }
 
   @override

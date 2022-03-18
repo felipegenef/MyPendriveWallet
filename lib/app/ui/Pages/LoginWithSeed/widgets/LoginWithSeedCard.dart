@@ -56,6 +56,7 @@ class _LoginWithSeedCardState extends State<LoginWithSeedCard> {
   void initState() {
     super.initState();
     initInputs();
+    firstMnemonicNode.requestFocus();
   }
 
   void submitSeeds() {
