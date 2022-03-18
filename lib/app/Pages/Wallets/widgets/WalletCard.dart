@@ -1,11 +1,6 @@
-import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:my_pendrive_wallet_desktop/app/global/widgets/input.dart';
+import 'package:my_pendrive_wallet_desktop/app/constants.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../../constants.dart';
 
 class WalletCard extends StatefulWidget {
   const WalletCard({

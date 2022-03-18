@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_pendrive_wallet_desktop/app/Pages/Wallets/widgets/WalletCard.dart';
+import 'package:my_pendrive_wallet_desktop/app/constants.dart';
+import 'package:my_pendrive_wallet_desktop/app/global/widgets/Menu.dart';
 import 'package:my_pendrive_wallet_desktop/app/global/widgets/whatermarkLogo.dart';
-import 'package:my_pendrive_wallet_desktop/app/ui/Pages/AddWallet/widgets/AddWalletCard.dart';
-import 'package:my_pendrive_wallet_desktop/app/ui/Pages/Home/widgets/HomeCard.dart';
-import 'package:my_pendrive_wallet_desktop/app/ui/Pages/Wallets/widgets/WalletCard.dart';
-import '../../../constants.dart';
-import '../../../global/widgets/Menu.dart';
 
 class WalletsPage extends StatefulWidget {
   const WalletsPage({Key key}) : super(key: key);

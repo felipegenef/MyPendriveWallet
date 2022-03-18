@@ -1,10 +1,9 @@
 import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:my_pendrive_wallet_desktop/app/Custom/lib/src/easy_loading.dart';
+import 'package:my_pendrive_wallet_desktop/app/constants.dart';
 import 'package:my_pendrive_wallet_desktop/app/global/widgets/input.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../../constants.dart';
 
 class LoginCard extends StatefulWidget {
   const LoginCard({
@@ -44,6 +43,8 @@ class _AddWalletCardState extends State<LoginCard> {
     if (password == walletPasswordController.text) {
       Navigator.popAndPushNamed(context, "/wallets");
       prefs.setString("LoggedWallet", widget.walletName);
+    } else {
+      EasyLoading.showError("Senha incorreta.");
     }
   }
 

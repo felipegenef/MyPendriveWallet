@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_pendrive_wallet_desktop/app/constants.dart';
 import 'package:my_pendrive_wallet_desktop/app/global/widgets/input.dart';
-
-import '../../../../constants.dart';
 
 class LoginWithSeedCard extends StatefulWidget {
   const LoginWithSeedCard({

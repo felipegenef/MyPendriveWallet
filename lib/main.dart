@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localized/localized.dart';
 import 'package:my_pendrive_wallet_desktop/app/Custom/lib/src/easy_loading.dart';
-import 'package:my_pendrive_wallet_desktop/app/constants.dart';
+import 'package:my_pendrive_wallet_desktop/app/Pages/AddWallet/AddWallet.dart';
+import 'package:my_pendrive_wallet_desktop/app/Pages/Home/Home.dart';
+import 'package:my_pendrive_wallet_desktop/app/Pages/LoginWithPassword/LoginWithPassword.dart';
+import 'package:my_pendrive_wallet_desktop/app/Pages/LoginWithSeed/LoginWithSeed.dart';
+import 'package:my_pendrive_wallet_desktop/app/Pages/Wallets/Wallets.dart';
 
-import 'package:my_pendrive_wallet_desktop/app/ui/Pages/AddWallet/AddWallet.dart';
-import 'package:my_pendrive_wallet_desktop/app/ui/Pages/LoginWithPassword/LoginWithPassword.dart';
-import 'package:my_pendrive_wallet_desktop/app/ui/Pages/LoginWithSeed/LoginWithSeed.dart';
-import 'package:my_pendrive_wallet_desktop/app/ui/Pages/Wallets/Wallets.dart';
-import 'package:pie_chart/pie_chart.dart';
-
-import 'app/ui/Pages/Home/Home.dart';
 // create files
 //flutter pub run localized:main -c -l en,de,ru,pt,it
 // generate translations from api key
@@ -20,7 +17,7 @@ void main() {
   runApp(const MyApp());
 }
 
-final locales = [
+const locales = [
   Locale('de', 'DE'),
   Locale('en', 'EN'),
   Locale('ru', 'RU'),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:my_pendrive_wallet_desktop/app/Pages/Home/widgets/HomeCard.dart';
+import 'package:my_pendrive_wallet_desktop/app/constants.dart';
+import 'package:my_pendrive_wallet_desktop/app/global/widgets/Menu.dart';
 import 'package:my_pendrive_wallet_desktop/app/global/widgets/whatermarkLogo.dart';
-import 'package:my_pendrive_wallet_desktop/app/ui/Pages/Home/widgets/HomeCard.dart';
-import '../../../constants.dart';
-import '../../../global/widgets/Menu.dart';
+
 import 'package:localized/localized.dart';
 
 class HomePage extends StatefulWidget {

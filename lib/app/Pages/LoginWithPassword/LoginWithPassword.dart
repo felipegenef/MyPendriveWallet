@@ -1,15 +1,13 @@
 import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:my_pendrive_wallet_desktop/app/Custom/lib/src/easy_loading.dart';
+import 'package:my_pendrive_wallet_desktop/app/Pages/LoginWithPassword/widgets/LoginCard.dart';
+import 'package:my_pendrive_wallet_desktop/app/Pages/LoginWithPassword/widgets/LoginWithPasswordCard.dart';
+import 'package:my_pendrive_wallet_desktop/app/Pages/LoginWithPassword/widgets/NoWalletCard.dart';
+import 'package:my_pendrive_wallet_desktop/app/constants.dart';
+import 'package:my_pendrive_wallet_desktop/app/global/widgets/Menu.dart';
 import 'package:my_pendrive_wallet_desktop/app/global/widgets/whatermarkLogo.dart';
-import 'package:my_pendrive_wallet_desktop/app/ui/Pages/LoginWithPassword/widgets/LoginCard.dart';
-import 'package:my_pendrive_wallet_desktop/app/ui/Pages/LoginWithPassword/widgets/LoginWithPasswordCard.dart';
-import 'package:my_pendrive_wallet_desktop/app/ui/Pages/LoginWithPassword/widgets/NoWalletCard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../Custom/lib/flutter_easyloading.dart';
-import '../../../constants.dart';
-import '../../../global/widgets/Menu.dart';
 
 class LoginWithPasswordPage extends StatefulWidget {
   const LoginWithPasswordPage({Key key}) : super(key: key);

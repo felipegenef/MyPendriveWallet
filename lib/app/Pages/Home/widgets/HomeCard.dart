@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:my_pendrive_wallet_desktop/app/constants.dart';
 
-import '../../../../constants.dart';
-
-class LoginWithPasswordCard extends StatefulWidget {
-  const LoginWithPasswordCard({Key key, this.onClick, this.label = ""})
+class HomeCard extends StatefulWidget {
+  const HomeCard({Key key, this.imageURL, this.onClick, this.label = ""})
       : super(key: key);
-
+  final String imageURL;
   final Function onClick;
   final String label;
   @override
-  State<LoginWithPasswordCard> createState() => _LoginWithPasswordCardState();
+  State<HomeCard> createState() => _HomeCardState();
 }
 
-class _LoginWithPasswordCardState extends State<LoginWithPasswordCard> {
+class _HomeCardState extends State<HomeCard> {
   bool isHovered = false;
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
+    var isSmallScreen = width < 800;
     return InkWell(
       borderRadius: BorderRadius.circular(30),
       onTap: () {
@@ -28,12 +28,10 @@ class _LoginWithPasswordCardState extends State<LoginWithPasswordCard> {
         });
       },
       child: AnimatedContainer(
-        height: 252,
-        width: 264,
-        padding: const EdgeInsets.all(2.5),
-        margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
-        constraints: const BoxConstraints(
-            minWidth: 252, maxWidth: 352, minHeight: 264, maxHeight: 364),
+        height: width / 4,
+        width: width / 4.2,
+        margin: const EdgeInsets.all(5),
+        constraints: const BoxConstraints(minWidth: 252, minHeight: 264),
         curve: Curves.linear,
         duration: const Duration(milliseconds: 300),
         decoration: BoxDecoration(
@@ -65,20 +63,18 @@ class _LoginWithPasswordCardState extends State<LoginWithPasswordCard> {
                   ),
                 ],
               ),
-              child: const Image(
-                width: 140,
-                image: AssetImage("assets/user.png"),
+              child: Image(
+                width: width / 9 < 130 ? 130 : width / 9,
+                image: AssetImage(widget.imageURL),
               ),
             ),
             Text(
               widget.label,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
               style: TextStyle(
                   color: !isHovered ? DARK_BLUE : BACKGROUND,
-                  fontSize: 23,
+                  fontSize: width / 45 < 23 ? 23 : width / 45,
                   fontWeight: FontWeight.bold),
-            ),
+            )
           ],
         ),
       ),
