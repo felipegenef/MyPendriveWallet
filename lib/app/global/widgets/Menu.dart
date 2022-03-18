@@ -91,7 +91,7 @@ class _MenuBubbleState extends State<MenuBubble>
                 Navigator.pop(context);
               },
             ),
-          if (route == "/myWallets")
+          if (route == "/wallets")
             Bubble(
               title: "Logout",
               bubbleColor: DARK_BLUE,

@@ -46,6 +46,7 @@ flutter:
     - assets/transfer.png
     - assets/user.png
     - assets/wallet.png
+    - assets/trash.png
     - assets/cryptoIcons/32x32/Bitcoin.png
     - assets/cryptoIcons/32x32/Ethereum.png
     - assets/cryptoIcons/64x64/Bitcoin.png

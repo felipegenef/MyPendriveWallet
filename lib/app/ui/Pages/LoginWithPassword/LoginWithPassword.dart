@@ -1,3 +1,4 @@
+import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:my_pendrive_wallet_desktop/app/global/widgets/whatermarkLogo.dart';
 import 'package:my_pendrive_wallet_desktop/app/ui/Pages/LoginWithPassword/widgets/LoginCard.dart';
@@ -18,6 +19,8 @@ class LoginWithPasswordPage extends StatefulWidget {
 class _LoginWithPasswordPageState extends State<LoginWithPasswordPage> {
   var wallets = [];
   String currentWalletName = "";
+  bool isBeenDraged = false;
+  bool trashHoved = false;
   @override
   void initState() {
     super.initState();
@@ -35,10 +38,20 @@ class _LoginWithPasswordPageState extends State<LoginWithPasswordPage> {
     }
   }
 
+  deleteWallet(DragTargetDetails<String> details) async {
+    var prefs = await SharedPreferences.getInstance();
+    var encryptedPrefs = EncryptedSharedPreferences();
+    var walletNames = prefs.getStringList("walletNames");
+    walletNames.remove(details.data);
+    prefs.setStringList("walletNames", walletNames);
+    prefs.remove("Password " + details.data);
+    prefs.remove("Seed " + details.data);
+    getWallets();
+  }
+
   void checkCurrentWalletExistence() async {
     var prefs = await SharedPreferences.getInstance();
     var currentWallet = prefs.getString("currentWallet");
-    print(currentWallet);
     prefs.remove("currentWallet");
     if (currentWallet == null) {
     } else {
@@ -76,13 +89,35 @@ class _LoginWithPasswordPageState extends State<LoginWithPasswordPage> {
                 children: [
                   if (currentWalletName == "")
                     for (var wallet in wallets)
-                      LoginWithPasswordCard(
-                        onClick: () {
+                      Draggable<String>(
+                        data: wallet,
+                        onDragStarted: () {
                           setState(() {
-                            currentWalletName = wallet;
+                            isBeenDraged = true;
                           });
                         },
-                        label: wallet,
+                        onDragEnd: (details) {
+                          setState(() {
+                            isBeenDraged = false;
+                          });
+                        },
+                        feedback: Opacity(
+                            opacity: 0.8,
+                            child: Material(
+                              color: Colors.transparent,
+                              child: LoginWithPasswordCard(
+                                onClick: () {},
+                                label: wallet,
+                              ),
+                            )),
+                        child: LoginWithPasswordCard(
+                          onClick: () {
+                            setState(() {
+                              currentWalletName = wallet;
+                            });
+                          },
+                          label: wallet,
+                        ),
                       ),
                   if (wallets.isEmpty && currentWalletName == "")
                     const NoWalletCard(
@@ -102,6 +137,17 @@ class _LoginWithPasswordPageState extends State<LoginWithPasswordPage> {
               ),
             ),
           ),
+          if (isBeenDraged)
+            Positioned(
+              bottom: 30,
+              left: width / 2,
+              child: DragTarget<String>(
+                  onAcceptWithDetails: deleteWallet,
+                  builder: (BuildContext context, List<String> list,
+                          List<dynamic> dynamicist) =>
+                      const Image(
+                          image: AssetImage("assets/trash.png"), height: 70)),
+            ),
           const WatermarkLogo()
         ],
       ),
