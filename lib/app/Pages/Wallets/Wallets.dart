@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_pendrive_wallet_desktop/app/Pages/Wallets/Classes/SupportedCoins.dart';
+import 'package:my_pendrive_wallet_desktop/app/Pages/Wallets/widgets/CreateTransactionCard.dart';
+import 'package:my_pendrive_wallet_desktop/app/Pages/ExportWallet/ExportWalletCard.dart';
 import 'package:my_pendrive_wallet_desktop/app/Pages/Wallets/widgets/WalletCard.dart';
 import 'package:my_pendrive_wallet_desktop/app/constants.dart';
 import 'package:my_pendrive_wallet_desktop/app/global/widgets/Menu.dart';
@@ -12,6 +15,23 @@ class WalletsPage extends StatefulWidget {
 }
 
 class _AddWalletPageState extends State<WalletsPage> {
+  SuportedCoin transactionCoinData;
+  List<SuportedCoin> supportedCoins = [
+    SuportedCoin(
+        coinName: "Bitcoin",
+        imageUrl: "assets/cryptoIcons/256x256/Bitcoin.png",
+        walletAddress: "3FZbgi29cpjq2GjdwV8eyHuJJnkLtktZc5"),
+    SuportedCoin(
+        coinName: "Ethereum",
+        imageUrl: "assets/cryptoIcons/256x256/Ethereum.png",
+        walletAddress: "3FZbgi29cpjasdaaddadmaksldmkLtktZc5")
+  ];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -30,20 +50,33 @@ class _AddWalletPageState extends State<WalletsPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
-                    SizedBox(
+                  children: [
+                    const SizedBox(
                       height: 100,
                     ),
-                    WalletCard(
-                      imageURL: "assets/cryptoIcons/256x256/Bitcoin.png",
-                      coinName: "Bitcoin",
-                      walletAddress: "3FZbgi29cpjq2GjdwV8eyHuJJnkLtktZc5",
-                    ),
-                    WalletCard(
-                      imageURL: "assets/cryptoIcons/256x256/Ethereum.png",
-                      coinName: "Ethereum",
-                      walletAddress: "3FZbgi29cpjasdaaddadmaksldmkLtktZc5",
-                    ),
+                    if (transactionCoinData == null)
+                      for (var coin in supportedCoins)
+                        WalletCard(
+                          onTransferClick: (SuportedCoin coinData) {
+                            setState(() {
+                              transactionCoinData = coinData;
+                            });
+                          },
+                          imageURL: coin.imageUrl,
+                          coinName: coin.coinName,
+                          walletAddress: coin.walletAddress,
+                        ),
+                    if (transactionCoinData != null)
+                      CreateTransactionCard(
+                        imageUrl: transactionCoinData.imageUrl,
+                        coinName: transactionCoinData.coinName,
+                        walletAddress: transactionCoinData.walletAddress,
+                        back: () {
+                          setState(() {
+                            transactionCoinData = null;
+                          });
+                        },
+                      ),
                   ],
                 ),
               ),

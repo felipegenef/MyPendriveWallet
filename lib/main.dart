@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localized/localized.dart';
 import 'package:my_pendrive_wallet_desktop/app/Custom/lib/src/easy_loading.dart';
 import 'package:my_pendrive_wallet_desktop/app/Pages/AddWallet/AddWallet.dart';
+import 'package:my_pendrive_wallet_desktop/app/Pages/ExportWallet/ExportWallet.dart';
 import 'package:my_pendrive_wallet_desktop/app/Pages/Home/Home.dart';
 import 'package:my_pendrive_wallet_desktop/app/Pages/LoginWithPassword/LoginWithPassword.dart';
 import 'package:my_pendrive_wallet_desktop/app/Pages/LoginWithSeed/LoginWithSeed.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         supportedLocales: locales,
-        locale: Locale('pt', 'BR'),
+        locale: const Locale('pt', 'BR'),
         localizationsDelegates: [
           GlobalCupertinoLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
@@ -59,6 +60,8 @@ class MyApp extends StatelessWidget {
               textDirection: TextDirection.ltr, child: LoginWithPasswordPage()),
           '/wallets': (context) => const Directionality(
               textDirection: TextDirection.ltr, child: WalletsPage()),
+          '/exportWallet': (context) => const Directionality(
+              textDirection: TextDirection.ltr, child: ExportWalletPage()),
         });
   }
 }

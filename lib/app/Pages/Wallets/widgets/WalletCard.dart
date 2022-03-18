@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_pendrive_wallet_desktop/app/Pages/Wallets/Classes/SupportedCoins.dart';
 import 'package:my_pendrive_wallet_desktop/app/constants.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -8,10 +9,12 @@ class WalletCard extends StatefulWidget {
     this.imageURL = "",
     this.coinName = "",
     this.walletAddress = "",
+    this.onTransferClick,
   }) : super(key: key);
   final String imageURL;
   final String coinName;
   final String walletAddress;
+  final Function onTransferClick;
 
   @override
   State<WalletCard> createState() => _AddWalletCardState();
@@ -31,17 +34,9 @@ class _AddWalletCardState extends State<WalletCard> {
 
     return Container(
       clipBehavior: Clip.antiAlias,
-      // height: height,
-      // width: width,
       margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
       padding: EdgeInsets.symmetric(
           vertical: (height / 1.5) / 20, horizontal: (width / 1.1) / 30),
-      // constraints: BoxConstraints(
-      //     minWidth: width / 1.1,
-      //     maxWidth: width / 1.1,
-      //     minHeight: height / 1.5,
-      //     maxHeight: height / 1.5,
-      //     ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: TRANSPARENT,
@@ -109,7 +104,15 @@ class _AddWalletCardState extends State<WalletCard> {
                 height: width / 5 < minQrCodeWidth ? minQrCodeWidth : width / 5,
               ),
               MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (widget.onTransferClick != null) {
+                    SuportedCoin cardCoin = SuportedCoin(
+                        coinName: widget.coinName,
+                        imageUrl: widget.imageURL,
+                        walletAddress: widget.walletAddress);
+                    widget.onTransferClick(cardCoin);
+                  }
+                },
                 child: Column(
                   children: [
                     Image(
