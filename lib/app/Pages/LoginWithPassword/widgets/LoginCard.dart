@@ -1,4 +1,4 @@
-import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
+// import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:my_pendrive_wallet_desktop/app/Custom/lib/src/easy_loading.dart';
 import 'package:my_pendrive_wallet_desktop/app/constants.dart';
@@ -37,15 +37,15 @@ class _AddWalletCardState extends State<LoginCard> {
 
   void login() async {
     var prefs = await SharedPreferences.getInstance();
-    var encryptedPrefs = EncryptedSharedPreferences();
-    var password =
-        await encryptedPrefs.getString("Password " + widget.walletName);
-    if (password == walletPasswordController.text) {
-      Navigator.popAndPushNamed(context, "/wallets");
-      prefs.setString("LoggedWallet", widget.walletName);
-    } else {
-      EasyLoading.showError("Senha incorreta.");
-    }
+    // var encryptedPrefs = EncryptedSharedPreferences();
+    // var password =
+    //     await encryptedPrefs.getString("Password " + widget.walletName);
+    // if (password == walletPasswordController.text) {
+    //   Navigator.popAndPushNamed(context, "/wallets");
+    //   prefs.setString("LoggedWallet", widget.walletName);
+    // } else {
+    //   EasyLoading.showError("Senha incorreta.");
+    // }
   }
 
   @override

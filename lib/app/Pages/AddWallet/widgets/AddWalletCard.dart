@@ -1,9 +1,14 @@
-import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
+// import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
+// import 'package:encryptor/encryptor.dart';
+import 'dart:convert';
+
+import 'package:bitcoin_flutter/bitcoin_flutter.dart' as btc;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_pendrive_wallet_desktop/app/constants.dart';
 import 'package:my_pendrive_wallet_desktop/app/global/widgets/input.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bip39/bip39.dart' as bip39;
 
 class AddWalletCard extends StatefulWidget {
   const AddWalletCard({
@@ -21,6 +26,7 @@ class _AddWalletCardState extends State<AddWalletCard> {
   TextEditingController walletPasswordController = TextEditingController();
   FocusNode walletNameNode = FocusNode();
   FocusNode walletPasswordNode = FocusNode();
+
   @override
   void initState() {
     super.initState();
@@ -35,21 +41,30 @@ class _AddWalletCardState extends State<AddWalletCard> {
   }
 
   void createWallet() async {
-    var prefs = await SharedPreferences.getInstance();
-    var encryptedPrefs = EncryptedSharedPreferences();
-    var walletNames = prefs.getStringList("walletNames");
-    if (walletNames == null) {
-      prefs.setStringList("walletNames", [walletNameController.text]);
-    } else {
-      prefs.setStringList(
-          "walletNames", [...walletNames, walletNameController.text]);
-    }
-    encryptedPrefs.setString(
-        "Password " + walletNameController.text, walletPasswordController.text);
-    //  encryptedPrefs.setString("Seed " + walletNameController.text,
-    // "TODO: add seed here");
-    prefs.setString("currentWallet", walletNameController.text);
-    Navigator.popAndPushNamed(context, "/loginWithPassword");
+    var mnemonic = bip39.generateMnemonic();
+    // TODO change to original network
+    var wallet = btc.HDWallet.fromSeed(bip39.mnemonicToSeed(mnemonic),
+        network: btc.testnet);
+    print(mnemonic);
+    print(wallet.address);
+
+    print(wallet.pubKey);
+
+    print(wallet.privKey);
+
+    print(wallet.wif);
+    // var prefs = await SharedPreferences.getInstance();
+    // var walletNames = prefs.getStringList("walletNames");
+    // if (walletNames == null) {
+    //   prefs.setStringList("walletNames", [walletNameController.text]);
+    // } else {
+    //   prefs.setStringList(
+    //       "walletNames", [...walletNames, walletNameController.text]);
+    // }
+
+    // prefs.setString("Seed " + walletNameController.text, mnemonic);
+    // prefs.setString("currentWallet", walletNameController.text);
+    // Navigator.popAndPushNamed(context, "/loginWithPassword");
   }
 
   @override
