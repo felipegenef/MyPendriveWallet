@@ -1,12 +1,14 @@
 // import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 // import 'package:encryptor/encryptor.dart';
 import 'dart:convert';
+import 'package:crypto/crypto.dart';
 
 import 'package:bitcoin_flutter/bitcoin_flutter.dart' as btc;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_pendrive_wallet_desktop/app/constants.dart';
 import 'package:my_pendrive_wallet_desktop/app/global/widgets/input.dart';
+import 'package:my_pendrive_wallet_desktop/helpers/encryption.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bip39/bip39.dart' as bip39;
 
@@ -53,6 +55,13 @@ class _AddWalletCardState extends State<AddWalletCard> {
     print(wallet.privKey);
 
     print(wallet.wif);
+    // menmonic
+    final plainText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit';
+
+    print(encryptFromPassword("minha senha", mnemonic));
+    print(decryptFromPassword(
+        "minha senha", encryptFromPassword("minha senha", mnemonic)));
+
     // var prefs = await SharedPreferences.getInstance();
     // var walletNames = prefs.getStringList("walletNames");
     // if (walletNames == null) {
