@@ -210,8 +210,13 @@ class _ShowSeedCardState extends State<ShowSeedCard> {
                 margin: EdgeInsets.only(top: height / 20, bottom: 30),
                 child: MaterialButton(
                   hoverColor: LIGHT_BLUE,
-                  onPressed: () =>
-                      Navigator.popAndPushNamed(context, "/loginWithPassword"),
+                  onPressed: () {
+                    // TODO change to original network
+                    //TODO pass wallet data as params
+                    // var wallet = btc.HDWallet.fromSeed(bip39.mnemonicToSeed(mnemonic),
+                    //     network: btc.testnet);
+                    Navigator.popAndPushNamed(context, "/loginWithPassword");
+                  },
                   child: const Text(
                     "Eu Anotei",
                     style: TextStyle(color: WHITE, fontSize: 30),

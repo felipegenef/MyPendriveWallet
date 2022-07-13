@@ -46,9 +46,6 @@ class _AddWalletCardState extends State<AddWalletCard> {
 
   void createWallet() async {
     var mnemonic = bip39.generateMnemonic();
-    // TODO change to original network
-    // var wallet = btc.HDWallet.fromSeed(bip39.mnemonicToSeed(mnemonic),
-    //     network: btc.testnet);
     var prefs = await SharedPreferences.getInstance();
     var walletNames = prefs.getStringList("walletNames");
     if (walletNames == null) {

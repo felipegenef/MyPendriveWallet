@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_pendrive_wallet_desktop/app/constants.dart';
 import 'package:my_pendrive_wallet_desktop/app/global/widgets/input.dart';
+import 'package:my_pendrive_wallet_desktop/helpers/encryption.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginWithSeedCard extends StatefulWidget {
   const LoginWithSeedCard({
@@ -64,7 +66,43 @@ class _LoginWithSeedCardState extends State<LoginWithSeedCard> {
     });
   }
 
-  void createWallet() {}
+  void createWallet() async {
+    var mnemonicArray = [
+      firstMnemonicController.text.replaceAll(" ", ""),
+      secondMnemonicController.text.replaceAll(" ", ""),
+      thirdMnemonicController.text.replaceAll(" ", ""),
+      fourthMnemonicController.text.replaceAll(" ", ""),
+      fifthMnemonicController.text.replaceAll(" ", ""),
+      sixthMnemonicController.text.replaceAll(" ", ""),
+      seventhMnemonicController.text.replaceAll(" ", ""),
+      eighthMnemonicController.text.replaceAll(" ", ""),
+      ninthMnemonicController.text.replaceAll(" ", ""),
+      tenthMnemonicController.text.replaceAll(" ", ""),
+      eleventhMnemonicController.text.replaceAll(" ", ""),
+      twelfthMnemonicController.text.replaceAll(" ", ""),
+    ];
+    var mnemonic = mnemonicArray.join(" ");
+    var prefs = await SharedPreferences.getInstance();
+    var walletNames = prefs.getStringList("walletNames");
+    if (walletNames == null) {
+      prefs.setStringList("walletNames", [walletNameController.text]);
+    } else {
+      prefs.setStringList(
+          "walletNames", [...walletNames, walletNameController.text]);
+    }
+
+    prefs.setString(
+        "Seed " + walletNameController.text,
+        Encryption.encryptFromPassword(
+            walletPasswordController.text, mnemonic));
+    prefs.setString("currentWallet", walletNameController.text);
+    // TODO change to original network
+    //TODO pass wallet data as params
+    // var wallet = btc.HDWallet.fromSeed(bip39.mnemonicToSeed(mnemonic),
+    //     network: btc.testnet);
+    Navigator.popAndPushNamed(context, "/loginWithPassword");
+  }
+
   @override
   void dispose() {
     // Clean up the focus nodes when the Form is disposed.
