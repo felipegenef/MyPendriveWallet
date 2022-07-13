@@ -19,6 +19,7 @@ class LoginWithPasswordPage extends StatefulWidget {
 class _LoginWithPasswordPageState extends State<LoginWithPasswordPage> {
   var wallets = [];
   String currentWalletName = "";
+  String currentTrashSRC = "assets/trash.png";
   bool isBeenDraged = false;
   bool trashHoved = false;
 
@@ -48,6 +49,9 @@ class _LoginWithPasswordPageState extends State<LoginWithPasswordPage> {
     prefs.remove("Seed " + details.data);
     getWallets();
     await EasyLoading.showSuccess('Carteira excluida com sucesso!');
+    setState(() {
+      currentTrashSRC = "assets/trash.png";
+    });
   }
 
   void checkCurrentWalletExistence() async {
@@ -143,11 +147,21 @@ class _LoginWithPasswordPageState extends State<LoginWithPasswordPage> {
               bottom: 30,
               left: width / 2,
               child: DragTarget<String>(
-                  onAcceptWithDetails: deleteWallet,
-                  builder: (BuildContext context, List<String> list,
-                          List<dynamic> dynamicist) =>
-                      const Image(
-                          image: AssetImage("assets/trash.png"), height: 70)),
+                onAcceptWithDetails: deleteWallet,
+                onMove: (data) {
+                  setState(() {
+                    currentTrashSRC = "assets/trashRed.png";
+                  });
+                },
+                onLeave: (data) {
+                  setState(() {
+                    currentTrashSRC = "assets/trash.png";
+                  });
+                },
+                builder: (BuildContext context, List<String> list,
+                        List<dynamic> dynamicist) =>
+                    Image(image: AssetImage(currentTrashSRC), height: 70),
+              ),
             ),
           const WatermarkLogo()
         ],

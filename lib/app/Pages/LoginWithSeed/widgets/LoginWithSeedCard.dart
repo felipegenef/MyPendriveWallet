@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_pendrive_wallet_desktop/app/Custom/lib/src/easy_loading.dart';
 import 'package:my_pendrive_wallet_desktop/app/constants.dart';
 import 'package:my_pendrive_wallet_desktop/app/global/widgets/input.dart';
 import 'package:my_pendrive_wallet_desktop/helpers/encryption.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bip39/bip39.dart' as bip39;
 
 class LoginWithSeedCard extends StatefulWidget {
   const LoginWithSeedCard({
@@ -82,25 +84,30 @@ class _LoginWithSeedCardState extends State<LoginWithSeedCard> {
       twelfthMnemonicController.text.replaceAll(" ", ""),
     ];
     var mnemonic = mnemonicArray.join(" ");
-    var prefs = await SharedPreferences.getInstance();
-    var walletNames = prefs.getStringList("walletNames");
-    if (walletNames == null) {
-      prefs.setStringList("walletNames", [walletNameController.text]);
-    } else {
-      prefs.setStringList(
-          "walletNames", [...walletNames, walletNameController.text]);
-    }
+    var valid = bip39.validateMnemonic(mnemonic);
+    if (valid) {
+      var prefs = await SharedPreferences.getInstance();
+      var walletNames = prefs.getStringList("walletNames");
+      if (walletNames == null) {
+        prefs.setStringList("walletNames", [walletNameController.text]);
+      } else {
+        prefs.setStringList(
+            "walletNames", [...walletNames, walletNameController.text]);
+      }
 
-    prefs.setString(
-        "Seed " + walletNameController.text,
-        Encryption.encryptFromPassword(
-            walletPasswordController.text, mnemonic));
-    prefs.setString("currentWallet", walletNameController.text);
-    // TODO change to original network
-    //TODO pass wallet data as params
-    // var wallet = btc.HDWallet.fromSeed(bip39.mnemonicToSeed(mnemonic),
-    //     network: btc.testnet);
-    Navigator.popAndPushNamed(context, "/loginWithPassword");
+      prefs.setString(
+          "Seed " + walletNameController.text,
+          Encryption.encryptFromPassword(
+              walletPasswordController.text, mnemonic));
+      prefs.setString("currentWallet", walletNameController.text);
+      // TODO change to original network
+      //TODO pass wallet data as params
+      // var wallet = btc.HDWallet.fromSeed(bip39.mnemonicToSeed(mnemonic),
+      //     network: btc.testnet);
+      Navigator.popAndPushNamed(context, "/loginWithPassword");
+    } else {
+      await EasyLoading.showError('Seed inválida');
+    }
   }
 
   @override
