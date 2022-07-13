@@ -62,10 +62,30 @@ class _LoginWithSeedCardState extends State<LoginWithSeedCard> {
     firstMnemonicNode.requestFocus();
   }
 
-  void submitSeeds() {
-    setState(() {
-      submitedValidSeed = true;
-    });
+  void submitSeeds() async {
+    var mnemonicArray = [
+      firstMnemonicController.text.replaceAll(" ", ""),
+      secondMnemonicController.text.replaceAll(" ", ""),
+      thirdMnemonicController.text.replaceAll(" ", ""),
+      fourthMnemonicController.text.replaceAll(" ", ""),
+      fifthMnemonicController.text.replaceAll(" ", ""),
+      sixthMnemonicController.text.replaceAll(" ", ""),
+      seventhMnemonicController.text.replaceAll(" ", ""),
+      eighthMnemonicController.text.replaceAll(" ", ""),
+      ninthMnemonicController.text.replaceAll(" ", ""),
+      tenthMnemonicController.text.replaceAll(" ", ""),
+      eleventhMnemonicController.text.replaceAll(" ", ""),
+      twelfthMnemonicController.text.replaceAll(" ", ""),
+    ];
+    var mnemonic = mnemonicArray.join(" ");
+    var valid = bip39.validateMnemonic(mnemonic);
+    if (valid) {
+      setState(() {
+        submitedValidSeed = true;
+      });
+    } else {
+      await EasyLoading.showError('Seed inválida');
+    }
   }
 
   void createWallet() async {
@@ -85,29 +105,26 @@ class _LoginWithSeedCardState extends State<LoginWithSeedCard> {
     ];
     var mnemonic = mnemonicArray.join(" ");
     var valid = bip39.validateMnemonic(mnemonic);
-    if (valid) {
-      var prefs = await SharedPreferences.getInstance();
-      var walletNames = prefs.getStringList("walletNames");
-      if (walletNames == null) {
-        prefs.setStringList("walletNames", [walletNameController.text]);
-      } else {
-        prefs.setStringList(
-            "walletNames", [...walletNames, walletNameController.text]);
-      }
 
-      prefs.setString(
-          "Seed " + walletNameController.text,
-          Encryption.encryptFromPassword(
-              walletPasswordController.text, mnemonic));
-      prefs.setString("currentWallet", walletNameController.text);
-      // TODO change to original network
-      //TODO pass wallet data as params
-      // var wallet = btc.HDWallet.fromSeed(bip39.mnemonicToSeed(mnemonic),
-      //     network: btc.testnet);
-      Navigator.popAndPushNamed(context, "/loginWithPassword");
+    var prefs = await SharedPreferences.getInstance();
+    var walletNames = prefs.getStringList("walletNames");
+    if (walletNames == null) {
+      prefs.setStringList("walletNames", [walletNameController.text]);
     } else {
-      await EasyLoading.showError('Seed inválida');
+      prefs.setStringList(
+          "walletNames", [...walletNames, walletNameController.text]);
     }
+
+    prefs.setString(
+        "Seed " + walletNameController.text,
+        Encryption.encryptFromPassword(
+            walletPasswordController.text, mnemonic));
+    prefs.setString("currentWallet", walletNameController.text);
+    // TODO change to original network
+    //TODO pass wallet data as params
+    // var wallet = btc.HDWallet.fromSeed(bip39.mnemonicToSeed(mnemonic),
+    //     network: btc.testnet);
+    Navigator.popAndPushNamed(context, "/loginWithPassword");
   }
 
   @override
@@ -265,9 +282,29 @@ class _LoginWithSeedCardState extends State<LoginWithSeedCard> {
           "label": "12",
           "controller": twelfthMnemonicController,
           "node": twelfthMnemonicNode,
-          "submit": () {
+          "submit": () async {
             twelfthMnemonicNode.unfocus();
-            submitSeeds();
+            var mnemonicArray = [
+              firstMnemonicController.text.replaceAll(" ", ""),
+              secondMnemonicController.text.replaceAll(" ", ""),
+              thirdMnemonicController.text.replaceAll(" ", ""),
+              fourthMnemonicController.text.replaceAll(" ", ""),
+              fifthMnemonicController.text.replaceAll(" ", ""),
+              sixthMnemonicController.text.replaceAll(" ", ""),
+              seventhMnemonicController.text.replaceAll(" ", ""),
+              eighthMnemonicController.text.replaceAll(" ", ""),
+              ninthMnemonicController.text.replaceAll(" ", ""),
+              tenthMnemonicController.text.replaceAll(" ", ""),
+              eleventhMnemonicController.text.replaceAll(" ", ""),
+              twelfthMnemonicController.text.replaceAll(" ", ""),
+            ];
+            var mnemonic = mnemonicArray.join(" ");
+            var valid = bip39.validateMnemonic(mnemonic);
+            if (valid) {
+              submitSeeds();
+            } else {
+              await EasyLoading.showError('Seed inválida');
+            }
           },
         }
       ];
