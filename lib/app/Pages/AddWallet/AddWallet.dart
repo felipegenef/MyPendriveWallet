@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_pendrive_wallet_desktop/app/Pages/AddWallet/widgets/AddWalletCard.dart';
+import 'package:my_pendrive_wallet_desktop/app/Pages/AddWallet/widgets/ShowSeedCard.dart';
 import 'package:my_pendrive_wallet_desktop/app/constants.dart';
 import 'package:my_pendrive_wallet_desktop/app/global/widgets/Menu.dart';
 import 'package:my_pendrive_wallet_desktop/app/global/widgets/whatermarkLogo.dart';
@@ -12,6 +13,7 @@ class AddWalletPage extends StatefulWidget {
 }
 
 class _AddWalletPageState extends State<AddWalletPage> {
+  String mnemonic;
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -26,10 +28,21 @@ class _AddWalletPageState extends State<AddWalletPage> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
-                AddWalletCard(
-                  imageURL: "assets/add.png",
-                ),
+              children: [
+                if (mnemonic == null)
+                  AddWalletCard(
+                    callbackWithSeeds: (newMnemonic) {
+                      setState(() {
+                        mnemonic = newMnemonic;
+                      });
+                    },
+                    imageURL: "assets/add.png",
+                  ),
+                if (mnemonic != null)
+                  ShowSeedCard(
+                    imageURL: "assets/user.png",
+                    mnemonic: mnemonic,
+                  )
               ],
             ),
           ),

@@ -5,6 +5,7 @@ import '../../constants.dart';
 class Input extends StatefulWidget {
   const Input(
       {Key key,
+      this.readOnly = false,
       this.controller,
       this.label = "",
       this.obscureText = false,
@@ -18,6 +19,7 @@ class Input extends StatefulWidget {
   final double maxWidth;
   final FocusNode node;
   final Function onSubmited;
+  final bool readOnly;
   @override
   State<Input> createState() => _InputState();
 }
@@ -43,6 +45,7 @@ class _InputState extends State<Input> {
             onSubmitted: (stringValue) {
               if (widget.onSubmited != null) widget.onSubmited();
             },
+            readOnly: widget.readOnly,
             focusNode: widget.node,
             obscureText: widget.obscureText && isPasswordHidden,
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w400),

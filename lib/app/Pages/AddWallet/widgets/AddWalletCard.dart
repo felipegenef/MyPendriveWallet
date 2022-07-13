@@ -15,9 +15,11 @@ import 'package:bip39/bip39.dart' as bip39;
 class AddWalletCard extends StatefulWidget {
   const AddWalletCard({
     Key key,
+    this.callbackWithSeeds,
     this.imageURL,
   }) : super(key: key);
   final String imageURL;
+  final Function callbackWithSeeds;
 
   @override
   State<AddWalletCard> createState() => _AddWalletCardState();
@@ -45,35 +47,23 @@ class _AddWalletCardState extends State<AddWalletCard> {
   void createWallet() async {
     var mnemonic = bip39.generateMnemonic();
     // TODO change to original network
-    var wallet = btc.HDWallet.fromSeed(bip39.mnemonicToSeed(mnemonic),
-        network: btc.testnet);
-    print(mnemonic);
-    print(wallet.address);
+    // var wallet = btc.HDWallet.fromSeed(bip39.mnemonicToSeed(mnemonic),
+    //     network: btc.testnet);
+    var prefs = await SharedPreferences.getInstance();
+    var walletNames = prefs.getStringList("walletNames");
+    if (walletNames == null) {
+      prefs.setStringList("walletNames", [walletNameController.text]);
+    } else {
+      prefs.setStringList(
+          "walletNames", [...walletNames, walletNameController.text]);
+    }
 
-    print(wallet.pubKey);
-
-    print(wallet.privKey);
-
-    print(wallet.wif);
-    // menmonic
-    final plainText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit';
-
-    print(encryptFromPassword("minha senha", mnemonic));
-    print(decryptFromPassword(
-        "minha senha", encryptFromPassword("minha senha", mnemonic)));
-
-    // var prefs = await SharedPreferences.getInstance();
-    // var walletNames = prefs.getStringList("walletNames");
-    // if (walletNames == null) {
-    //   prefs.setStringList("walletNames", [walletNameController.text]);
-    // } else {
-    //   prefs.setStringList(
-    //       "walletNames", [...walletNames, walletNameController.text]);
-    // }
-
-    // prefs.setString("Seed " + walletNameController.text, mnemonic);
-    // prefs.setString("currentWallet", walletNameController.text);
-    // Navigator.popAndPushNamed(context, "/loginWithPassword");
+    prefs.setString(
+        "Seed " + walletNameController.text,
+        Encryption.encryptFromPassword(
+            walletPasswordController.text, mnemonic));
+    prefs.setString("currentWallet", walletNameController.text);
+    widget.callbackWithSeeds(mnemonic);
   }
 
   @override
