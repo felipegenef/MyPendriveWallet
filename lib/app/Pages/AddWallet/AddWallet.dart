@@ -40,7 +40,7 @@ class _AddWalletPageState extends State<AddWalletPage> {
                   ),
                 if (mnemonic != null)
                   ShowSeedCard(
-                    imageURL: "assets/user.png",
+                    imageURL: "assets/add.png",
                     mnemonic: mnemonic,
                   )
               ],

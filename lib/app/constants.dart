@@ -28,3 +28,5 @@ const LITECOIN_GRADIENT_COLOR = [
   Color(0xffe879f9),
   LITECOIN_COLOR,
 ];
+const WRITE_SEED_WARNING =
+    "Essas são as 12 palavras que compõe sua chave privada. Por favor escreva e guarde essas palavras na ordem em algum lugar seguro como um papel ou um metal. Não guarde essas palavras em nenhum documento digital. Assim que tiver anotado clique em “Eu anotei” para podermos te redirecionar para sua carteira.";

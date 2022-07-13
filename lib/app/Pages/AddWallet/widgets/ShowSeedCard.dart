@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_pendrive_wallet_desktop/app/constants.dart';
@@ -13,27 +15,25 @@ class ShowSeedCard extends StatefulWidget {
 }
 
 class _ShowSeedCardState extends State<ShowSeedCard> {
-  TextEditingController walletNameController = TextEditingController();
-  TextEditingController walletPasswordController = TextEditingController();
-  TextEditingController firstMnemonicController = TextEditingController();
-  TextEditingController secondMnemonicController = TextEditingController();
-  TextEditingController thirdMnemonicController = TextEditingController();
-  TextEditingController fourthMnemonicController = TextEditingController();
-  TextEditingController fifthMnemonicController = TextEditingController();
-  TextEditingController sixthMnemonicController = TextEditingController();
-  TextEditingController seventhMnemonicController = TextEditingController();
-  TextEditingController eighthMnemonicController = TextEditingController();
-  TextEditingController ninthMnemonicController = TextEditingController();
-  TextEditingController tenthMnemonicController = TextEditingController();
-  TextEditingController eleventhMnemonicController = TextEditingController();
-  TextEditingController twelfthMnemonicController = TextEditingController();
+  String walletName;
+  String walletPassword;
+  String firstMnemonic;
+  String secondMnemonic;
+  String thirdMnemonic;
+  String fourthMnemonic;
+  String fifthMnemonic;
+  String sixthMnemonic;
+  String seventhMnemonic;
+  String eighthMnemonic;
+  String ninthMnemonic;
+  String tenthMnemonic;
+  String eleventhMnemonic;
+  String twelfthMnemonic;
 
   List<TextEditingController> controllers;
   List<FocusNode> nodes;
 
-  List<Map<String, dynamic>> firstRowinputs = [];
-  List<Map<String, dynamic>> secondRowinputs = [];
-  List<Map<String, dynamic>> thirdRowinputs = [];
+  List<Map<String, dynamic>> mnemonicData = [];
 
   bool submitedValidSeed = false;
   @override
@@ -44,99 +44,74 @@ class _ShowSeedCardState extends State<ShowSeedCard> {
 
   void initInputs() {
     var mnemonics = widget.mnemonic.split(" ");
+
     setState(() {
-      // set first row of inputs data
-      firstRowinputs = [
+      firstMnemonic = mnemonics[0];
+      secondMnemonic = mnemonics[1];
+      thirdMnemonic = mnemonics[2];
+      fourthMnemonic = mnemonics[3];
+      fifthMnemonic = mnemonics[4];
+      sixthMnemonic = mnemonics[5];
+      seventhMnemonic = mnemonics[6];
+      eighthMnemonic = mnemonics[7];
+      ninthMnemonic = mnemonics[8];
+      tenthMnemonic = mnemonics[9];
+      eleventhMnemonic = mnemonics[10];
+      twelfthMnemonic = mnemonics[11];
+      mnemonicData = [
         {
-          "label": "1",
-          "controller": firstMnemonicController,
+          "label": "1-",
+          "text": firstMnemonic,
         },
         {
-          "label": "2",
-          "controller": secondMnemonicController,
+          "label": "2-",
+          "text": secondMnemonic,
         },
         {
-          "label": "3",
-          "controller": thirdMnemonicController,
+          "label": "3-",
+          "text": thirdMnemonic,
         },
         {
-          "label": "4",
-          "controller": fourthMnemonicController,
-        },
-      ];
-      // set second row of inputs data
-      secondRowinputs = [
-        {
-          "label": "5",
-          "controller": fifthMnemonicController,
+          "label": "4-",
+          "text": fourthMnemonic,
         },
         {
-          "label": "6",
-          "controller": sixthMnemonicController,
+          "label": "5-",
+          "text": fifthMnemonic,
         },
         {
-          "label": "7",
-          "controller": seventhMnemonicController,
+          "label": "6-",
+          "text": sixthMnemonic,
+        },
+        {"label": "7-", "text": seventhMnemonic},
+        {
+          "label": "8-",
+          "text": eighthMnemonic,
         },
         {
-          "label": "8",
-          "controller": eighthMnemonicController,
-        },
-      ];
-      // set third row of inputs data
-      thirdRowinputs = [
-        {
-          "label": "9",
-          "controller": ninthMnemonicController,
+          "label": "9-",
+          "text": ninthMnemonic,
         },
         {
-          "label": "10",
-          "controller": tenthMnemonicController,
+          "label": "10-",
+          "text": tenthMnemonic,
         },
         {
-          "label": "11",
-          "controller": eleventhMnemonicController,
+          "label": "11-",
+          "text": eleventhMnemonic,
         },
         {
-          "label": "12",
-          "controller": twelfthMnemonicController,
-        }
-      ];
-      // set controllers in a list for grabing all mnemonics in one for in loop
-      controllers = [
-        firstMnemonicController,
-        secondMnemonicController,
-        thirdMnemonicController,
-        fourthMnemonicController,
-        fifthMnemonicController,
-        sixthMnemonicController,
-        seventhMnemonicController,
-        eighthMnemonicController,
-        ninthMnemonicController,
-        tenthMnemonicController,
-        eleventhMnemonicController,
-        twelfthMnemonicController
+          "label": "12-",
+          "text": twelfthMnemonic,
+        },
       ];
     });
-    firstMnemonicController.text = mnemonics[0];
-    secondMnemonicController.text = mnemonics[1];
-    thirdMnemonicController.text = mnemonics[2];
-    fourthMnemonicController.text = mnemonics[3];
-    fifthMnemonicController.text = mnemonics[4];
-    sixthMnemonicController.text = mnemonics[5];
-    seventhMnemonicController.text = mnemonics[6];
-    eighthMnemonicController.text = mnemonics[7];
-    ninthMnemonicController.text = mnemonics[8];
-    tenthMnemonicController.text = mnemonics[9];
-    eleventhMnemonicController.text = mnemonics[10];
-    twelfthMnemonicController.text = mnemonics[11];
   }
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-
     return Container(
       height: height,
       width: width,
@@ -146,6 +121,7 @@ class _ShowSeedCardState extends State<ShowSeedCard> {
         minHeight: 330,
         maxHeight: 700,
       ),
+      padding: const EdgeInsets.symmetric(horizontal: 40),
       // margin: const EdgeInsets.symmetric(horizontal: 60),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
@@ -184,69 +160,45 @@ class _ShowSeedCardState extends State<ShowSeedCard> {
             height: 0,
             constraints: const BoxConstraints(minHeight: 10),
           ),
-          if (!submitedValidSeed)
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              for (var input in firstRowinputs)
-                Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-                  child: Input(
-                    readOnly: true,
-                    controller: input["controller"],
-                    label: input["label"],
-                    maxWidth: 150,
+          const Text(
+            WRITE_SEED_WARNING,
+            style: TextStyle(
+                color: DARK_BLUE, fontSize: 22, fontWeight: FontWeight.w600),
+          ),
+          Container(
+            height: 0,
+            constraints: const BoxConstraints(minHeight: 20),
+          ),
+          Wrap(
+              alignment: WrapAlignment.start,
+              direction: Axis.horizontal,
+              children: [
+                for (var input in mnemonicData)
+                  Container(
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                    constraints:
+                        const BoxConstraints(minWidth: 130.0, maxWidth: 130.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          input["label"],
+                          style: const TextStyle(
+                              color: DARK_BLUE,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        Text(
+                          input["text"],
+                          style: const TextStyle(
+                              color: LIGHT_BLUE,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-            ]),
-          if (!submitedValidSeed)
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              for (var input in secondRowinputs)
-                Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-                  child: Input(
-                    readOnly: true,
-                    controller: input["controller"],
-                    label: input["label"],
-                    maxWidth: 150,
-                  ),
-                ),
-            ]),
-          if (!submitedValidSeed)
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              for (var input in thirdRowinputs)
-                Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-                  child: Input(
-                    readOnly: true,
-                    controller: input["controller"],
-                    label: input["label"],
-                    maxWidth: 150,
-                  ),
-                ),
-            ]),
-          if (submitedValidSeed)
-            Container(
-              height: 0,
-              constraints: const BoxConstraints(minHeight: 44),
-            ),
-          if (submitedValidSeed)
-            Input(
-              controller: walletNameController,
-              label: "Nome da Carteira",
-            ),
-          if (submitedValidSeed)
-            Container(
-              height: 0,
-              constraints: const BoxConstraints(minHeight: 10),
-            ),
-          if (submitedValidSeed)
-            Input(
-              controller: walletPasswordController,
-              label: "Senha",
-              obscureText: true,
-            ),
+              ]),
           Container(
             height: 0,
             constraints: BoxConstraints(minHeight: submitedValidSeed ? 90 : 30),
@@ -255,30 +207,13 @@ class _ShowSeedCardState extends State<ShowSeedCard> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin:
-                    EdgeInsets.only(top: height / 20, bottom: 30, right: 30),
-                child: MaterialButton(
-                  hoverColor: Colors.transparent,
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text(
-                    "Voltar",
-                    style: TextStyle(color: LIGHT_BLUE, fontSize: 30),
-                  ),
-                  height: 60,
-                  minWidth: 190,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  elevation: 5,
-                ),
-              ),
-              Container(
                 margin: EdgeInsets.only(top: height / 20, bottom: 30),
                 child: MaterialButton(
                   hoverColor: LIGHT_BLUE,
                   onPressed: () =>
                       Navigator.popAndPushNamed(context, "/loginWithPassword"),
                   child: const Text(
-                    "Eu Anotei todas",
+                    "Eu Anotei",
                     style: TextStyle(color: WHITE, fontSize: 30),
                   ),
                   height: 60,
