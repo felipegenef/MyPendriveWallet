@@ -23,18 +23,26 @@ class CreateTransactionCard extends StatefulWidget {
 }
 
 class _AddWalletCardState extends State<CreateTransactionCard> {
-  TextEditingController walletPasswordController = TextEditingController();
-  FocusNode walletPasswordNode = FocusNode();
+  TextEditingController destinyAddressController = TextEditingController();
+  FocusNode destinyAddressNode = FocusNode();
+  TextEditingController ammountController = TextEditingController();
+  FocusNode ammountNode = FocusNode();
+  TextEditingController nounceController = TextEditingController();
+  FocusNode nounceNode = FocusNode();
+  TextEditingController gasPriceController = TextEditingController();
+  FocusNode gasPriceNode = FocusNode();
+  TextEditingController gasLimmitController = TextEditingController();
+  FocusNode gasLimmitNode = FocusNode();
   @override
   void initState() {
     super.initState();
-    walletPasswordNode.requestFocus();
+    destinyAddressNode.requestFocus();
   }
 
   @override
   void dispose() {
     super.dispose();
-    walletPasswordNode.dispose();
+    destinyAddressNode.dispose();
   }
 
   @override
@@ -43,13 +51,13 @@ class _AddWalletCardState extends State<CreateTransactionCard> {
     var height = MediaQuery.of(context).size.height;
 
     return Container(
-      height: height,
+      // height: height,
       width: width,
       constraints: const BoxConstraints(
         minWidth: 290,
         maxWidth: 750,
         minHeight: 195,
-        maxHeight: 560,
+        // maxHeight: 560,
       ),
       // margin: const EdgeInsets.symmetric(horizontal: 60),
       decoration: BoxDecoration(
@@ -86,7 +94,7 @@ class _AddWalletCardState extends State<CreateTransactionCard> {
             ),
           ),
           Text(
-            widget.coinName,
+            "Transferir " + widget.coinName,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
             style: const TextStyle(
@@ -97,12 +105,67 @@ class _AddWalletCardState extends State<CreateTransactionCard> {
             constraints: const BoxConstraints(minHeight: 10),
           ),
           Input(
-            controller: walletPasswordController,
-            label: "",
-            obscureText: true,
-            node: walletPasswordNode,
+            controller: destinyAddressController,
+            label: "Endereço de destino",
+            node: destinyAddressNode,
             onSubmited: () {
-              walletPasswordNode.unfocus();
+              destinyAddressNode.unfocus();
+              ammountNode.requestFocus();
+            },
+          ),
+          Container(
+            height: 0,
+            constraints: const BoxConstraints(minHeight: 10),
+          ),
+          Input(
+            controller: ammountController,
+            label: "Quantidade",
+            node: ammountNode,
+            isNumber: true,
+            onSubmited: () {
+              ammountNode.unfocus();
+              nounceNode.requestFocus();
+            },
+          ),
+          Container(
+            height: 0,
+            constraints: const BoxConstraints(minHeight: 10),
+          ),
+          Input(
+            controller: nounceController,
+            label: "Nounce",
+            isNumber: true,
+            node: nounceNode,
+            onSubmited: () {
+              nounceNode.unfocus();
+              gasPriceNode.requestFocus();
+            },
+          ),
+          Container(
+            height: 0,
+            constraints: const BoxConstraints(minHeight: 10),
+          ),
+          Input(
+            controller: gasPriceController,
+            label: "Preço do Gas(satochi)",
+            node: gasPriceNode,
+            isNumber: true,
+            onSubmited: () {
+              gasPriceNode.unfocus();
+              gasLimmitNode.requestFocus();
+            },
+          ),
+          Container(
+            height: 0,
+            constraints: const BoxConstraints(minHeight: 10),
+          ),
+          Input(
+            controller: gasLimmitController,
+            label: "Limite Gas",
+            isNumber: true,
+            node: gasLimmitNode,
+            onSubmited: () {
+              gasLimmitNode.unfocus();
             },
           ),
           Container(
@@ -137,7 +200,7 @@ class _AddWalletCardState extends State<CreateTransactionCard> {
                   hoverColor: LIGHT_BLUE,
                   onPressed: () {},
                   child: const Text(
-                    "Login",
+                    "Gerar QR",
                     style: TextStyle(color: WHITE, fontSize: 30),
                   ),
                   height: 60,

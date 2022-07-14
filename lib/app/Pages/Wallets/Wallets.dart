@@ -21,11 +21,12 @@ class _AddWalletPageState extends State<WalletsPage> {
         coinName: "Bitcoin",
         imageUrl: "assets/cryptoIcons/256x256/Bitcoin.png",
         walletAddress: "3FZbgi29cpjq2GjdwV8eyHuJJnkLtktZc5"),
-    SuportedCoin(
-        coinName: "Ethereum",
-        imageUrl: "assets/cryptoIcons/256x256/Ethereum.png",
-        walletAddress: "3FZbgi29cpjasdaaddadmaksldmkLtktZc5")
+    // SuportedCoin(
+    //     coinName: "Ethereum",
+    //     imageUrl: "assets/cryptoIcons/256x256/Ethereum.png",
+    //     walletAddress: "3FZbgi29cpjasdaaddadmaksldmkLtktZc5")
   ];
+  CrossAxisAlignment pageAlign = CrossAxisAlignment.center;
   @override
   void initState() {
     // TODO: implement initState
@@ -48,7 +49,7 @@ class _AddWalletPageState extends State<WalletsPage> {
                   initialScrollOffset: 0, keepScrollOffset: true),
               child: Center(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: pageAlign,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const SizedBox(
@@ -60,6 +61,7 @@ class _AddWalletPageState extends State<WalletsPage> {
                           onTransferClick: (SuportedCoin coinData) {
                             setState(() {
                               transactionCoinData = coinData;
+                              pageAlign = CrossAxisAlignment.start;
                             });
                           },
                           imageURL: coin.imageUrl,
@@ -74,6 +76,7 @@ class _AddWalletPageState extends State<WalletsPage> {
                         back: () {
                           setState(() {
                             transactionCoinData = null;
+                            pageAlign = CrossAxisAlignment.center;
                           });
                         },
                       ),

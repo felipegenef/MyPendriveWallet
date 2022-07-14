@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../constants.dart';
 
@@ -11,6 +12,7 @@ class Input extends StatefulWidget {
       this.obscureText = false,
       this.maxWidth = 400,
       this.node,
+      this.isNumber = false,
       this.onSubmited})
       : super(key: key);
   final TextEditingController controller;
@@ -20,6 +22,7 @@ class Input extends StatefulWidget {
   final FocusNode node;
   final Function onSubmited;
   final bool readOnly;
+  final bool isNumber;
   @override
   State<Input> createState() => _InputState();
 }
@@ -45,6 +48,9 @@ class _InputState extends State<Input> {
             onSubmitted: (stringValue) {
               if (widget.onSubmited != null) widget.onSubmited();
             },
+            inputFormatters: widget.isNumber
+                ? [FilteringTextInputFormatter.digitsOnly]
+                : null,
             readOnly: widget.readOnly,
             focusNode: widget.node,
             obscureText: widget.obscureText && isPasswordHidden,
